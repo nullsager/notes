@@ -7,3 +7,5 @@
 + 删除所有的孤儿：`sudo pacman -R $(pacman -Qdtq)`
 ## kitty
 + 修改主题：`kitty +kitten themes`
+## git 中文乱码问题
+[参考资料](https://gist.github.com/nightire/5069597)

@@ -5,3 +5,5 @@
 + 只显示软件名，不显示版本号：`pacman -Qeq`
 + 查看孤儿(没有任何软件以来它们)：`pacman -Qdt`
 + 删除所有的孤儿：`sudo pacman -R $(pacman -Qdtq)`
+## git 中文乱码问题
+[参考资料](https://gist.github.com/nightire/5069597)

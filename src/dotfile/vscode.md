@@ -1,5 +1,7 @@
 ```json
 {
+  "window.titleBarStyle": "custom",
+  "window.commandCenter": true,
   "editor.fontSize": 16,
   // 字体设置
   "editor.fontFamily": "'FiraCode Nerd Font' ,Consolas, 'Courier New', monospace",
@@ -56,10 +58,14 @@
         "workbench.action.navigateLeft"
       ]
     },
-    // {
-    //   "before": ["<C-j>"],
-    //   "commands": ["workbench.action.navigateDown"]
-    // },
+    {
+      "before": [
+        "<C-j>"
+      ],
+      "commands": [
+        "workbench.action.navigateDown"
+      ]
+    },
     {
       "before": [
         "<C-k>"
@@ -88,15 +94,6 @@
     {
       "before": [
         "<leader>",
-        "t"
-      ],
-      "commands": [
-        "workbench.action.terminal.toggleTerminal"
-      ]
-    },
-    {
-      "before": [
-        "<leader>",
         "h"
       ],
       "commands": [
@@ -119,6 +116,15 @@
       ],
       "commands": [
         "workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "z"
+      ],
+      "commands": [
+        "workbench.action.toggleZenMode"
       ]
     }
   ],
@@ -145,7 +151,6 @@
     "<C-a>": false,
     "<C-f>": false,
     "<C-b>": false,
-    "<C-j>": false,
     "<C-p>": false,
   },
   // vim底部状态栏
@@ -169,9 +174,9 @@
     "vscodevim.vim": 1
   },
   "workbench.colorCustomizations": {
-    "statusBar.background": "#8FBCBB",
-    "statusBar.noFolderBackground": "#8FBCBB",
-    "statusBar.debuggingBackground": "#8FBCBB",
+    "statusBar.background": "#BF616A",
+    "statusBar.noFolderBackground": "#BF616A",
+    "statusBar.debuggingBackground": "#BF616A",
     "statusBar.foreground": "#434C5E",
     "statusBar.debuggingForeground": "#434C5E"
   },
@@ -296,6 +301,7 @@
   "latex-workshop.view.pdf.viewer": "tab",
   "latex-workshop.view.pdf.ref.viewer": "auto",
   "explorer.confirmDelete": false,
+  //////////////////////////////////////////////////////////////////////////////////////////
   "clangd.arguments": [
     "--header-insertion=never",
   ],

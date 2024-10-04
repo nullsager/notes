@@ -112,15 +112,6 @@
     {
       "before": [
         "<leader>",
-        "b"
-      ],
-      "commands": [
-        "workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup"
-      ]
-    },
-    {
-      "before": [
-        "<leader>",
         "z"
       ],
       "commands": [

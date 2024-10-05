@@ -2,6 +2,7 @@
 {
   "window.titleBarStyle": "custom",
   "window.commandCenter": true,
+  "workbench.colorTheme": "One Dark Pro",
   "editor.fontSize": 16,
   // 字体设置
   "editor.fontFamily": "'FiraCode Nerd Font' ,Consolas, 'Courier New', monospace",
@@ -165,9 +166,13 @@
     "vscodevim.vim": 1
   },
   "workbench.colorCustomizations": {
-    "statusBar.background": "#BF616A",
-    "statusBar.noFolderBackground": "#BF616A",
-    "statusBar.debuggingBackground": "#BF616A",
+    "editorError.foreground": "#00000000",
+    "editorWarning.foreground": "#00000000",
+    "editorInfo.foreground": "#00000000",
+    "editorHint.foreground": "#00000000",
+    "statusBar.background": "#8FBCBB",
+    "statusBar.noFolderBackground": "#8FBCBB",
+    "statusBar.debuggingBackground": "#8FBCBB",
     "statusBar.foreground": "#434C5E",
     "statusBar.debuggingForeground": "#434C5E"
   },
@@ -296,5 +301,22 @@
   "clangd.arguments": [
     "--header-insertion=never",
   ],
+  "cmake.pinnedCommands": [
+    "workbench.action.tasks.configureTaskRunner",
+    "workbench.action.tasks.runTask"
+  ],
+  "cmake.showOptionsMovedNotification": false,
+  "cmake.configureOnOpen": false,
+  "cmake.autoBuildAfterConfigure": false,
+  "cmake.buildOnSave": false,
+
+  "editor.renderValidationDecorations": "off",
+  // 禁用错误提示
+  // "workbench.colorCustomizations": {
+  //   "editorError.foreground": "#00000000",
+  //   "editorWarning.foreground": "#00000000",
+  //   "editorInfo.foreground": "#00000000",
+  //   "editorHint.foreground": "#00000000"
+  // },
 }
 ```

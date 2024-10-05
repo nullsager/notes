@@ -2,7 +2,6 @@
 {
   "window.titleBarStyle": "custom",
   "window.commandCenter": true,
-  "workbench.colorTheme": "One Dark Pro",
   "editor.fontSize": 16,
   // 字体设置
   "editor.fontFamily": "'FiraCode Nerd Font' ,Consolas, 'Courier New', monospace",
@@ -165,17 +164,6 @@
   "extensions.experimental.affinity": {
     "vscodevim.vim": 1
   },
-  "workbench.colorCustomizations": {
-    "editorError.foreground": "#00000000",
-    "editorWarning.foreground": "#00000000",
-    "editorInfo.foreground": "#00000000",
-    "editorHint.foreground": "#00000000",
-    "statusBar.background": "#8FBCBB",
-    "statusBar.noFolderBackground": "#8FBCBB",
-    "statusBar.debuggingBackground": "#8FBCBB",
-    "statusBar.foreground": "#434C5E",
-    "statusBar.debuggingForeground": "#434C5E"
-  },
   // 插件
   "vim.easymotion": true,
   //////////////////////////////////////////////////////////////////////////////////////////
@@ -309,14 +297,16 @@
   "cmake.configureOnOpen": false,
   "cmake.autoBuildAfterConfigure": false,
   "cmake.buildOnSave": false,
-
-  "editor.renderValidationDecorations": "off",
-  // 禁用错误提示
-  // "workbench.colorCustomizations": {
-  //   "editorError.foreground": "#00000000",
-  //   "editorWarning.foreground": "#00000000",
-  //   "editorInfo.foreground": "#00000000",
-  //   "editorHint.foreground": "#00000000"
-  // },
+  // 下面的内容是每个主题自动会添加的内容，如果想要不显示警告和错误的信息，可以在workbench.colorCustomizations中添加
+  // "editorError.foreground": "#00000000",
+  // "editorWarning.foreground": "#00000000",
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#8FBCBB",
+    "statusBar.noFolderBackground": "#8FBCBB",
+    "statusBar.debuggingBackground": "#8FBCBB",
+    "statusBar.foreground": "#434C5E",
+    "statusBar.debuggingForeground": "#434C5E"
+  },
+  "workbench.colorTheme": "One Dark Pro Mix",
 }
 ```

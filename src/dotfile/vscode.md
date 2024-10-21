@@ -320,3 +320,39 @@
   "workbench.colorTheme": "One Dark Pro Mix",
 }
 ```
+
+## 代码片段配置
+### cpp.json
+```json
+{
+	"competitive programming": {
+		"prefix": "cp",
+		"body": [
+			"#include <bits/stdc++.h>",
+			"",
+			"#define rep(i, a, b) for (int i = a; i <= b; i++)",
+			"#define per(i, a, b) for (int i = a; i >= b; i--)",
+			"#define db(x) cout << #x << \" = \" << x << '\\n';",
+			"#define db2(x) cout << #x << \" = \" << x;",
+			"",
+			"using namespace std;",
+			"using ll = long long;",
+			"using pi = pair<int, int>;",
+			"",
+			"void solve() {",
+			"}",
+			"int main() {",
+			"  ios::sync_with_stdio(false);",
+			"  cin.tie(nullptr);",
+			"",
+			"  int T = 1;",
+			"  cin >> T;",
+			"  while (T--) {",
+			"    solve();",
+			"  }",
+			"}"
+		],
+		"description": "competitive programming"
+	}
+}
+```

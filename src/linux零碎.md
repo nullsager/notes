@@ -39,3 +39,36 @@ export PATH=/usr/local/gcc-14.2.0/bin:$PATH
 # 配置库路径
 export LD_LIBRARY_PATH=/usr/local/gcc-14.2.0/lib64:$LD_LIBRARY_PATH
 ```
+## 统计代码行数
+```bash
+# 统计单个文件
+wc -l user.py
+# 统计当前目录所有文件行数
+wc -l *       
+# 统计当前目录所有.h文件行数
+wc -l *.h
+
+# 统计所有py文件的行数
+wc -l `find . -name "*.py"`
+# 统计.h和.cpp文件行数
+wc -l `find . -name "*.h";find . -name "*.cpp"`
+# 统计.py和.html文件行数, 多扩展名的正则写法
+wc -l `find -E . -regex '.*\.(py|html)'` 
+
+# 统计当前目录下所有文件行数
+find  . * | xargs wc -l
+# 统计java文件的代码行数
+find . -name *.java | xargs wc -l
+# 统计文件个数，不xargs，带上就是统计代码行数了
+find . -name "*.h" | wc -l
+
+# 统计目录并按行数排序
+find . -name *.java | xargs wc -l | sort -n
+# 统计py和html行数，并按照第二列(文件名列)倒序排序
+wc -l `find -E . -regex '.*\.(py|html)'` | sort -r -k2
+
+# 统计行数，去除空行
+find . \( -name "*.h" -o -name "*.c" \) |xargs cat|grep -v ^$|wc -l
+# 统计行数，去除注释
+find . -name "*.java"|xargs cat|grep -v -e ^$ -e ^\s*\/\/.*$|wc -l
+```

@@ -16,6 +16,17 @@
 
 [参考资料](https://gist.github.com/nightire/5069597)
 
+## git错误
+
+在git clone时，出现报错： `git clone Recv failure: Connection was reset`
+
+解决方案：
+
+```bash
+git config --global http.proxy http://127.0.0.1:10809
+git config --global https.proxy http://127.0.0.1:10811
+```
+
 ## 从源码安装 gcc
 
 从gcc官网选择对应的gcc版本：[官网](https://ftp.gnu.org/gnu/gcc/)，下面以安装 gcc-14.2.0为例(从源码安装gcc仍然先要安装gcc和g++)
@@ -90,8 +101,8 @@ find . -name "*.java"|xargs cat|grep -v -e ^$ -e ^\s*\/\/.*$|wc -l
 快捷键：
 * `<prefix> -` 竖直分屏
 * `<prefix> _` 水平分屏
-* `<prefix> h`,  `<prefix> j`,  `<prefix> k`,  `<prefix> l` 上下左右切换pane
-* `<prefix> H`,  `<prefix> J`,  `<prefix> K`,  `<prefix> L` 调整pane的大小
+* `<prefix> h`,      `<prefix> j`,      `<prefix> k`,  `<prefix> l` 上下左右切换pane
+* `<prefix> H`,      `<prefix> J`,      `<prefix> K`,  `<prefix> L` 调整pane的大小
 * `<prefix> <`,  `<prefix> >` 交换pane的位置
 * `<prefix> +` 将当前所在pane最大化/恢复原大小
 * `<prefix> q` 根据给出的数字在pane之间进行移动
@@ -108,6 +119,40 @@ find . -name "*.java"|xargs cat|grep -v -e ^$ -e ^\s*\/\/.*$|wc -l
 
 ## linux 命令
 
-查看文件夹大小：`du -sh 文件夹路径`
+查看文件夹大小： `du -sh 文件夹路径`
 
-如果你希望查看指定目录下每个子目录的大小，可以使用 `--max-depth` 选项:`du -h --max-depth=1 文件夹路径`
+如果你希望查看指定目录下每个子目录的大小，可以使用 `--max-depth` 选项: `du -h --max-depth=1 文件夹路径`
+
+## 安装nodejs
+
+参考资料：
+1. [nodejs](https://nodejs.org/en/download/package-manager)
+2. [nvm](https://github.com/nvm-sh/nvm)
+
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+nvm install 22
+```
+
+## archlinux 代理配置
+
+`sudo pacman -S v2ray` 安装 v2ray 内核
+
+`yay -S v2raya-bin` 安装 v2raya
+
+启动服务
+
+```
+systemctl enable --now v2raya.service
+systemctl restart v2raya.service
+```
+
+参考官方教程[v2rayA](https://v2raya.org/docs/prologue/quick-start/)配置好 v2rayA
+
+然后在 firefox 里配置
+
+```
+127.0.0.1   20171  HTTP Proxy
+127.0.0.1   20171  HTTPS Proxy
+127.0.0.1   20170  SOCKS Host
+```

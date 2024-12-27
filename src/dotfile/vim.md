@@ -8,6 +8,8 @@ set guioptions-=R " 隐藏gvim的右侧滚动条，当分割窗口时
 set guioptions-=L " 隐藏gvim的左侧滚动条，当分割窗口时
 let mapleader = " "
 
+language messages en_US
+set backspace=indent,eol,start
 set encoding=utf-8
 set fileencoding=utf-8
 set number
@@ -28,6 +30,8 @@ set ignorecase        " 搜索时忽略大小写
 set smartcase         " 当搜索关键字包含大写字母时，启用大小写敏感搜索
 set nowrap
 set wildmenu
+set clipboard=unnamed
+set modifiable
 
 inoremap jk <Esc>
 nnoremap <leader>v :vsplit<CR>
@@ -45,7 +49,6 @@ nnoremap ]b :bnext<CR>
 
 call plug#begin()
 Plug 'morhetz/gruvbox'
-Plug 'vim-airline/vim-airline'
 Plug 'preservim/nerdtree'
 Plug 'jiangmiao/auto-pairs'
 Plug 'voldikss/vim-floaterm'
@@ -53,7 +56,7 @@ call plug#end()
 
 " 配色
 colorscheme gruvbox
-set background=light
+set background=dark
 
 " nerdtree
 nnoremap <leader>e :NERDTreeToggle<CR>
@@ -71,7 +74,8 @@ tnoremap   <silent>   <F9>    <C-\><C-n>:FloatermNext<CR>
 nnoremap   <silent>   <F12>   :FloatermToggle<CR>
 tnoremap   <silent>   <F12>   <C-\><C-n>:FloatermToggle<CR>
 
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
+
+" 自定义状态栏
+set laststatus=2
+set statusline=%F%m%r%h%w\ %=[%{&fileencoding}][col:%c]
 ```

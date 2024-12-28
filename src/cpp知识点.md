@@ -9,6 +9,8 @@ std::uniform_real_distribution模板不写默认为double
 ```cpp
 std::random_device rd;
 std::mt19937 gen(rd());
+// 更简单的做法
+// std::mt19937 gen(std::random_device{}());
 std::uniform_int_distribution<> dis_int(0, 1000);
 for (int i = 0; i < 5; i++) {
   std::cout << dis_int(gen) << '\n';

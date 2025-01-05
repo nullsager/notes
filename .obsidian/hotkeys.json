@@ -111,5 +111,17 @@
       ],
       "key": "6"
     }
+  ],
+  "app:open-vault": [
+    {
+      "modifiers": [],
+      "key": "F2"
+    }
+  ],
+  "open-with-default-app:show": [
+    {
+      "modifiers": [],
+      "key": "F3"
+    }
   ]
 }

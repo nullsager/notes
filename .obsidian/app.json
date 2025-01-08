@@ -4,5 +4,14 @@
   "showRibbon": false,
   "defaultViewMode": "source",
   "vimMode": false,
-  "trashOption": "none"
+  "trashOption": "system",
+  "showLineNumber": true,
+  "spellcheck": false,
+  "autoConvertHtml": false,
+  "strictLineBreaks": true,
+  "attachmentFolderPath": "images",
+  "useMarkdownLinks": true,
+  "newFileLocation": "folder",
+  "newFileFolderPath": "draft",
+  "readableLineLength": true
 }

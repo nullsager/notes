@@ -307,9 +307,7 @@
   "cmake.configureOnOpen": false,
   "cmake.autoBuildAfterConfigure": false,
   "cmake.buildOnSave": false,
-  // 下面的内容是每个主题自动会添加的内容，如果想要不显示警告和错误的信息，可以在workbench.colorCustomizations中添加
-  // "editorError.foreground": "#00000000",
-  // "editorWarning.foreground": "#00000000",
+  "workbench.colorTheme": "One Dark Pro",
   "workbench.colorCustomizations": {
     "statusBar.background": "#8FBCBB",
     "statusBar.noFolderBackground": "#8FBCBB",
@@ -317,42 +315,50 @@
     "statusBar.foreground": "#434C5E",
     "statusBar.debuggingForeground": "#434C5E"
   },
-  "workbench.colorTheme": "One Dark Pro Mix",
-}
-```
-
-## 代码片段配置
-### cpp.json
-```json
-{
-	"competitive programming": {
-		"prefix": "cp",
-		"body": [
-			"#include <bits/stdc++.h>",
-			"",
-			"#define rep(i, a, b) for (int i = a; i <= b; i++)",
-			"#define per(i, a, b) for (int i = a; i >= b; i--)",
-			"#define db(x) cout << #x << \" = \" << x << '\\n';",
-			"#define db2(x) cout << #x << \" = \" << x;",
-			"",
-			"using namespace std;",
-			"using ll = long long;",
-			"using pi = pair<int, int>;",
-			"",
-			"void solve() {",
-			"}",
-			"int main() {",
-			"  ios::sync_with_stdio(false);",
-			"  cin.tie(nullptr);",
-			"",
-			"  int T = 1;",
-			"  cin >> T;",
-			"  while (T--) {",
-			"    solve();",
-			"  }",
-			"}"
-		],
-		"description": "competitive programming"
-	}
+  "[markdown]": {
+    "editor.formatOnSave": false,
+    "editor.renderWhitespace": "all",
+    "editor.quickSuggestions": {
+      "other": false,
+      "comments": true,
+      "strings": true
+    },
+    // "editor.snippetSuggestions": "top",
+    // "editor.tabCompletion": "on",
+    // "editor.acceptSuggestionOnEnter": "on",
+    "editor.defaultFormatter": "mervin.markdown-formatter"
+  },
+  // 是否启用格式化
+  "markdownFormatter.enable": true,
+  // 将配置里的全角符号转化为半角符号, 例如 `，：；！“”‘’（）？。` 
+  // 当设置为 '_' 或者 '' 的时候, 不转换符号
+  // 当设置为 'auto' 的时候, 自动根据上下文转换符号
+  "markdownFormatter.fullWidthTurnHalfWidth": "auto",
+  // 转换代码块为代码区，默认为''（空字符）,不转换
+  // 可以设置为任意合法英文
+  // 只有设置成js或者javascript，才会按照js语言语法格式化
+  "markdownFormatter.codeAreaToBlock": "",
+  // 是否格式化代码
+  // false: 不格式化代码
+  "markdownFormatter.formatCodes": true,
+  // 配置js-beautify
+  // {}: beautifyjs的配置设置
+  // 配置 `js-beautify` , 可以参考[这里](https://github.com/beautify-web/js-beautify)
+  "markdownFormatter.formatOpt": {
+    "indent_size": 2
+  },
+  // 格式化无序列表的符号 
+  "markdownFormatter.formatULSymbol": true,
+  // 各种符号后是否需要空格
+  "markdownFormatter.spaceAfterFullWidthOrHalfWidth": "half",
+  // 在文件首部显示时间
+  "markdownFormatter.displayTime": false,
+  // 是否格式化表格
+  "markdownFormatter.formatTable": true,
+  // 代表中文是英文的二倍宽度,用于表格对齐
+  "markdownFormatter.formatTableOpt": {
+    "chineseCharterWidth": 2
+  },
+  "leetcode.endpoint": "leetcode-cn",
 }
 ```

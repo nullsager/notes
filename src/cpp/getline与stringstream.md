@@ -24,3 +24,5 @@ string item;
 // 读取直到遇到逗号
 while (getline(ss, item, ',')) cout << item << endl;
 ```
+
+参考资料与注意事项：[std::string 介绍](https://www.learncpp.com/cpp-tutorial/introduction-to-stdstring/)

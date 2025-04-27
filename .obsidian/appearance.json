@@ -1,9 +1,10 @@
 {
   "theme": "obsidian",
-  "cssTheme": "Wasp",
+  "cssTheme": "Minimal",
   "baseFontSizeAction": true,
   "baseFontSize": 18,
   "showViewHeader": true,
   "nativeMenus": false,
-  "interfaceFontFamily": "FiraCode Nerd Font"
+  "interfaceFontFamily": "FiraCode Nerd Font",
+  "showRibbon": false
 }

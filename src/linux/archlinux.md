@@ -23,7 +23,7 @@
 
 ## pacman
 
-* `pacman -Rns` 卸载一个程序
+* `pacman -Rns` 卸载一个程序，n代表删除配置文件
 * `pacman -Q` 查看安装的所有包
 * `pacman -Qe` 查看显示安装的包
 * `pacman -Qeq` 只查看显示安装的包的包名
@@ -31,7 +31,10 @@
 * `pacman -Qn` 从主存储库安装的包
 * `pacman -Qm` 从aur安装的包
 * `sudo pacman -Sc` 删除缓存中的所有包
-* `pacman -Qi 软件包名` 查看要安装的软件包的详细信息
+* `pacman -Si 软件包名` 查看要安装的软件包的详细信息
+* `pacman -Qenq` 查看明确安装过的软件包
+* `pacman -Qdtq​` 列出所有孤立包
+* `sudo pacman -Rns $(pacman -Qdtq)` 删除孤立的软件包
 
 ## 安装的软件包
 

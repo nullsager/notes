@@ -34,3 +34,5 @@ vim.keymap.set("n", "<leader>t", function()
 end, { desc = "打印消息" })
 vim.keymap.set({"n", "v"}, "<leader>y", '"+y', { desc = "复制到系统剪贴板" })
 ```
+
+[同时使用多套nvim配置](https://michaeluloth.com/neovim-switch-configs/)

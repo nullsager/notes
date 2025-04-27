@@ -4,41 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "acbaebf4e29bca96",
+        "id": "664dc20df21c73de",
         "type": "tabs",
         "children": [
           {
-            "id": "09d57d6e95dc78f7",
+            "id": "87baaecd7623cce7",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "draft/target_link_libraries.md",
-                "mode": "preview",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "target_link_libraries"
-            }
-          }
-        ]
-      },
-      {
-        "id": "175a0033456290af",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "f67bc22056cf196b",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "draft/target_include_directories.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "target_include_directories"
+              "title": "New tab"
             }
           }
         ]
@@ -60,10 +36,11 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical"
+                "sortOrder": "alphabetical",
+                "autoReveal": false
               },
               "icon": "lucide-folder-closed",
-              "title": "文件列表"
+              "title": "Files"
             }
           },
           {
@@ -159,10 +136,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "draft/add_library.md"
+                "file": "draft/算法题面试.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "add_library 的大纲"
+              "title": "Outline of 算法题面试"
             }
           },
           {
@@ -185,63 +165,66 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "switcher:打开快速切换": false,
-      "graph:查看关系图谱": false,
-      "canvas:新建白板": false,
-      "daily-notes:打开/创建今天的日记": false,
-      "templates:插入模板": false,
-      "command-palette:打开命令面板": false,
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "obsidian-excalidraw-plugin:Create new drawing": false,
+      "command-palette:Open command palette": false,
       "oz-clear-unused-images:Clear Unused Images": false
     }
   },
-  "active": "f67bc22056cf196b",
+  "active": "87baaecd7623cce7",
   "lastOpenFiles": [
-    "draft/target_link_libraries.md",
-    "draft/target_include_directories.md",
-    "draft/add_library.md",
-    "draft/add_subdirectory.md",
-    "src/cpp/智能指针.md",
-    "src/docker.md",
-    "src/cpp/随机数.md",
-    "src/cmake/cmake参考资料.md",
+    "src/linux/archlinux.md",
+    "draft/算法题.md",
     "src/资源汇总.md",
-    "src/linux/linux零碎.md",
+    "src/git.md",
+    "draft/完美转发效果测试.md",
+    "draft/标准库算法.md",
+    "draft/无模板内存池实现.md",
+    "src/docker.md",
+    "draft/算法题面试.md",
+    "draft/标准输入错误处理示例.md",
+    "draft/target_include_directories.md",
+    "draft/archlinux安装.md",
+    "templates/daily.md",
+    "draft/lambda.md",
+    "src/dotfile/clangformat.md",
+    "draft/网络编程.md",
+    "draft/fprintf函数.md",
+    "draft/判断大端小端.md",
+    "draft/Untitled.md",
+    "draft/linux系统编程.md",
+    "images/Pasted image 20250309175224.png",
+    "draft/vector.md",
+    "draft/代码计时.md",
+    "draft/容器.md",
+    "src/dotfile/vscode.md",
+    "src/dotfile/vim.md",
+    "src/dotfile/ideavimrc.md",
+    "Excalidraw",
+    "images/Pasted image 20250116182224.png",
+    "images/Pasted image 20250116182049.png",
+    "images/Pasted image 20250111164019.png",
     "src/cmake",
-    "src/算法/master公式.md",
     "src/linux",
     "src/算法",
-    "draft/二叉树.md",
-    "src/vim.md",
-    "src/neovim.md",
-    "src/obsidian相关.md",
-    "src/conda.md",
-    "src/零散内容.md",
     "src/cpp",
-    "src/cpp/getline与stringstream.md",
     "draft/cpp",
     "未命名",
-    "dailynote/2025-01-06.md",
-    "templates/daily.md",
-    "src/并发编程.md",
     "draft",
     "plan",
     "canvas/demo.canvas",
     "canvas",
-    "templates/日期时间.md",
-    "test.md",
-    "templates",
     "未命名.canvas",
-    "dailynote/2025-01-05.md",
-    "2025-01-05.md",
-    "未命名.md",
     "images/Pasted image 20250105223553.png",
     "images/Pasted image 20250105223227.png",
     "images/Pasted image 20250105223030.png",
     "images/Pasted image 20250105222739.png",
     "images/Pasted image 20250105222726.png",
     "images/Pasted image 20250105222711.png",
-    "images/Pasted image 20250105222453.png",
-    "images/Pasted image 20250105222421.png",
     "Untitled.canvas"
   ]
 }

@@ -12,15 +12,27 @@
 
 激活虚拟环境：
 
- `conda activate myenv`
+```bash
+conda activate myenv
+```
 
 删除虚拟环境：
 
- `conda remove --name myenv --all`
+```bash
+ conda remove --name myenv --all
+```
 
 安装 Jupyter Notebook：
 
- `conda install -c anaconda jupyter`
+```bash
+ conda install jupyter notebook
+```
 
- `jupyter notebook`
-back
+
+![](Pasted%20image%2020250111164019.png)
+
+为了确保所有conda环境都可见，可以安装nb_conda_kernels：
+
+```bash
+conda install nb_conda_kernels
+```

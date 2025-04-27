@@ -35,25 +35,3 @@ sudo docker info
 * 重新启动并进入容器: `docker start -i <container_id_or_name>`
 
 *注意：-q 参数表示只返回容器的 ID*
-
-## docker安装配置archlinux
-
-```bash
-docker pull archlinux
-docker run -it archlinux
-pacman -Syu
-
-# 创建用户
-useradd -m -G wheel -s /bin/bash lc
-# 设置密码
-passwd lc
-export EDITOR=nvim
-visudo
-
-查找以下行（通常在文件的较高位置）：
-# %wheel ALL=(ALL) ALL
-去掉该行前的 # 注释符号
-使其变成：
-%wheel ALL=(ALL) ALL
-```
-

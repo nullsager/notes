@@ -4,20 +4,67 @@
     "type": "split",
     "children": [
       {
-        "id": "664dc20df21c73de",
+        "id": "12848dbf42ec893a",
         "type": "tabs",
         "children": [
           {
-            "id": "87baaecd7623cce7",
+            "id": "400eb71ac89431e2",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "draft/题目清单.md",
+                "mode": "preview",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "题目清单"
+            }
+          },
+          {
+            "id": "a6a3b3dcc7d405da",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "draft/堆.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "堆"
+            }
+          },
+          {
+            "id": "f336361de4faa33e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "draft/pacman.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "pacman"
+            }
+          },
+          {
+            "id": "de1eafb77f923b4a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "src/git.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "git"
             }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -49,7 +96,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#算法/树",
+                "query": "海明",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -57,7 +104,7 @@
                 "sortOrder": "alphabetical"
               },
               "icon": "lucide-search",
-              "title": "搜索"
+              "title": "Search"
             }
           },
           {
@@ -70,7 +117,8 @@
               "title": "Bookmarks"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -136,23 +184,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "draft/算法题面试.md",
+                "file": "src/git.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 算法题面试"
-            }
-          },
-          {
-            "id": "eb83f5e96e160732",
-            "type": "leaf",
-            "state": {
-              "type": "calendar",
-              "state": {},
-              "icon": "calendar-with-checkmark",
-              "title": "Calendar"
+              "title": "Outline of git"
             }
           }
         ],
@@ -160,71 +198,73 @@
       }
     ],
     "direction": "horizontal",
-    "width": 346.5,
-    "collapsed": true
+    "width": 312.5
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:Create new base": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
-      "obsidian-excalidraw-plugin:Create new drawing": false,
       "command-palette:Open command palette": false,
-      "oz-clear-unused-images:Clear Unused Images": false
+      "oz-clear-unused-images:Clear Unused Images": false,
+      "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "87baaecd7623cce7",
+  "active": "de1eafb77f923b4a",
   "lastOpenFiles": [
+    "draft/pacman.md",
+    "draft/题目清单.md",
+    "draft/堆.md",
+    "src/cpp/lambda.md",
+    "src/cpp/print函数.md",
+    "src/vim.md",
+    "draft/cpp时间获取.md",
+    "draft/cpp指定概率随机.md",
+    "draft/计算机网络.md",
+    "draft/差错检测.md",
+    "src/cpp/随机数.md",
+    "images/Pasted image 20251022144819.png",
+    "draft/stl算法（batch operations）.md",
+    "draft/Pavel Durov专访.md",
+    "代办事项.md",
+    "dailynote/2025-10-18.md",
+    "src/linux/archlinux安装.md",
+    "src/cmake/cmake示例.md",
+    "src/dotfile/clang相关.md",
+    "draft/STL算法（search operations）.md",
+    "draft/IO基础.md",
     "src/linux/archlinux.md",
-    "draft/算法题.md",
-    "src/资源汇总.md",
-    "src/git.md",
-    "draft/完美转发效果测试.md",
-    "draft/标准库算法.md",
-    "draft/无模板内存池实现.md",
-    "src/docker.md",
-    "draft/算法题面试.md",
-    "draft/标准输入错误处理示例.md",
-    "draft/target_include_directories.md",
-    "draft/archlinux安装.md",
-    "templates/daily.md",
-    "draft/lambda.md",
-    "src/dotfile/clangformat.md",
-    "draft/网络编程.md",
-    "draft/fprintf函数.md",
-    "draft/判断大端小端.md",
-    "draft/Untitled.md",
-    "draft/linux系统编程.md",
-    "images/Pasted image 20250309175224.png",
-    "draft/vector.md",
-    "draft/代码计时.md",
-    "draft/容器.md",
-    "src/dotfile/vscode.md",
-    "src/dotfile/vim.md",
-    "src/dotfile/ideavimrc.md",
+    "src/zellij.md",
+    "dailynote/2025-09-13.md",
+    "draft/3.5介质访问控制.md",
+    "draft/数据链路层.md",
+    "images/2dc465e1a4173354e84719f8013abcaf.jpg",
+    "images/78dba29fea6abce4835787bf0bac4c2c.jpg",
+    "images/d00bf2d7d77e63bb378dfe3dea67aa39.jpg",
+    "draft/透明传输.md",
+    "draft/Untitled.base",
+    "images/Pasted image 20250912221223.png",
+    "dailynote",
+    "canvas/Untitled 1.canvas",
+    "canvas/Untitled.canvas",
+    "draft/Untitled 1.base",
+    "images/Pasted image 20250820113441.png",
+    "images/Pasted image 20250819214215.png",
+    "src/408",
+    "src/cpp/语法",
+    "images/Pasted image 20250529201746.png",
+    "images/Pasted image 20250529201521.png",
+    "images/Pasted image 20250529201421.png",
     "Excalidraw",
-    "images/Pasted image 20250116182224.png",
-    "images/Pasted image 20250116182049.png",
-    "images/Pasted image 20250111164019.png",
     "src/cmake",
     "src/linux",
     "src/算法",
     "src/cpp",
-    "draft/cpp",
-    "未命名",
-    "draft",
-    "plan",
     "canvas/demo.canvas",
-    "canvas",
     "未命名.canvas",
-    "images/Pasted image 20250105223553.png",
-    "images/Pasted image 20250105223227.png",
-    "images/Pasted image 20250105223030.png",
-    "images/Pasted image 20250105222739.png",
-    "images/Pasted image 20250105222726.png",
-    "images/Pasted image 20250105222711.png",
     "Untitled.canvas"
   ]
 }

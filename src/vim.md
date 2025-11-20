@@ -447,6 +447,18 @@
 " 或使用简写
 : bro ol
 ```
+
+---
+
+### 快速翻页
+
++ `<C-f>`	向下翻一整页 (Forward)	Forward，向前
++ `<C-b>`	向上翻一整页 (Backward)	Backward，向后
++ `<C-d>`	向下翻半页 (Down)	Down，向下
++ `<C-u>`	向上翻半页 (Up)	Up，向上
+
+---
+
 ### 杂项
 
 + 在最近使用的两个 buffer 之间来回切换：`ctrl+^`

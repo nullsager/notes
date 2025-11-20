@@ -29,3 +29,7 @@ add_executable(a.out
 
 使用`#include <>`和`#include ""`的区别是前者会自动在`/usr/include`目录下查找
 
+
+`target_compile_options (a.out PRIVATE -Wall -Wextra -Wpedantic)`
+
+开启警告提示

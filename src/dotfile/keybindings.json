@@ -1,0 +1,180 @@
+[
+  // # vim extension
+  // ## toggle vim extension
+  {
+    "key": "ctrl+alt+`",
+    "command": "toggleVim"
+  },
+  {
+    "key": "ctrl+n",
+    "command": "-workbench.action.files.newUntitledFile"
+  },
+  {
+    "key": "ctrl+w",
+    "command": "-extension.vim_ctrl+w",
+    "when": "editorTextFocus && vim.active && vim.use<C-w> && !inDebugRepl"
+  },
+  {
+    "key": "ctrl+shift+w",
+    "command": "-workbench.action.closeWindow"
+  },
+  {
+    "key": "ctrl+\\",
+    "command": "-workbench.action.splitEditor"
+  },
+  {
+    "key": "ctrl+p",
+    "command": "-workbench.action.quickOpen"
+  },
+  {
+    "key": "ctrl+shift+=",
+    "command": "editor.action.fontZoomIn"
+  },
+  {
+    "key": "ctrl+shift+-",
+    "command": "editor.action.fontZoomOut"
+  },
+  // ## focus previous terminal session
+  {
+    "key": "ctrl+h",
+    "command": "workbench.action.terminal.focusPrevious",
+    "when": "terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus"
+  },
+  // ## focus next terminal session
+  {
+    "key": "ctrl+l",
+    "command": "workbench.action.terminal.focusNext",
+    "when": "terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "workbench.action.focusActiveEditorGroup",
+    "when": "terminalFocus || sideBarFocus"
+  },
+  {
+    "key": "ctrl+\\",
+    "command": "workbench.action.terminal.toggleTerminal",
+    "when": "terminal.active"
+  },
+  // ## new terminal session
+  {
+    "key": "ctrl+shift+\\",
+    "command": "workbench.action.terminal.new",
+    "when": "terminalProcessSupported || terminalWebExtensionContributedProfile"
+  },
+  {
+    "key": "ctrl+x",
+    "command": "workbench.action.terminal.kill",
+    "when": "terminalFindFocused && terminalHasBeenCreated || terminalFindFocused && terminalProcessSupported || terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported"
+  },
+  {
+    "key": "ctrl+alt+a",
+    "command": "workbench.action.toggleActivityBarVisibility"
+  },
+  {
+    "key": "ctrl+q",
+    "command": "workbench.action.closeActiveEditor"
+  },
+  // ## move editor group's position with `ctrl+k` `h/j/k/l`
+  // m for Move
+  {
+    "key": "ctrl+w shift+h",
+    "command": "workbench.action.moveActiveEditorGroupLeft"
+  },
+  {
+    "key": "ctrl+w shift+j",
+    "command": "workbench.action.moveActiveEditorGroupDown"
+  },
+  {
+    "key": "ctrl+w shift+k",
+    "command": "workbench.action.moveActiveEditorGroupUp"
+  },
+  {
+    "key": "ctrl+w shift+l",
+    "command": "workbench.action.moveActiveEditorGroupRight"
+  },
+  // 侧边栏/辅助侧边栏（右侧）——左右变宽窄
+  {
+    "key": "ctrl+left",
+    "command": "workbench.action.decreaseViewSize",
+    "when": "sideBarFocus || auxiliaryBarFocus"
+  },
+  {
+    "key": "ctrl+right",
+    "command": "workbench.action.increaseViewSize",
+    "when": "sideBarFocus || auxiliaryBarFocus"
+  },
+  // 底部面板（终端/输出/调试）——上下变高矮
+  {
+    "key": "ctrl+up",
+    "command": "workbench.action.increaseViewSize",
+    "when": "panelFocus"
+  },
+  {
+    "key": "ctrl+down",
+    "command": "workbench.action.decreaseViewSize",
+    "when": "panelFocus"
+  },
+  // 编辑器分组：左右按键让分割条朝按键方向移动
+  {
+    "key": "ctrl+left",
+    "command": "workbench.action.decreaseViewWidth",
+    "when": "editorFocus && !activeEditorGroupLast"
+  },
+  {
+    "key": "ctrl+left",
+    "command": "workbench.action.increaseViewWidth",
+    "when": "editorFocus &&  activeEditorGroupLast"
+  },
+  {
+    "key": "ctrl+right",
+    "command": "workbench.action.increaseViewWidth",
+    "when": "editorFocus && !activeEditorGroupLast"
+  },
+  {
+    "key": "ctrl+right",
+    "command": "workbench.action.decreaseViewWidth",
+    "when": "editorFocus &&  activeEditorGroupLast"
+  },
+  {
+    "key": "ctrl+up",
+    "command": "workbench.action.increaseViewHeight",
+    "when": "editorFocus"
+  },
+  {
+    "key": "ctrl+down",
+    "command": "workbench.action.decreaseViewHeight",
+    "when": "editorFocus"
+  },
+  // 终端分屏：在终端内用 Ctrl+方向键调 pane 尺寸
+  {
+    "key": "ctrl+left",
+    "command": "workbench.action.terminal.resizePaneLeft",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+right",
+    "command": "workbench.action.terminal.resizePaneRight",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+up",
+    "command": "workbench.action.terminal.resizePaneUp",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+down",
+    "command": "workbench.action.terminal.resizePaneDown",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "alt+i",
+    "command": "editor.action.smartSelect.expand",
+    "when": "editorTextFocus && (vim.mode == 'Normal' || vim.mode == 'Visual')"
+  },
+  {
+    "key": "backspace",
+    "command": "editor.action.smartSelect.shrink",
+    "when": "editorTextFocus && vim.mode == 'Visual'"
+  }
+]

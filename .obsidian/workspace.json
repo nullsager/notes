@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "748d4dad4ee8b004",
+        "id": "ec82799d1cf6c4e6",
         "type": "tabs",
         "children": [
           {
-            "id": "cf989ba842b51481",
+            "id": "ae3e475a1bc324f1",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "src/vim.md",
-                "mode": "preview",
+                "file": "draft/政治.md",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "vim"
+              "title": "政治"
             }
           }
         ]
@@ -53,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "海明",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -74,8 +74,7 @@
               "title": "Bookmarks"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -141,13 +140,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "src/vim.md",
+                "file": "draft/fzf.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of vim"
+              "title": "Outline of fzf"
             }
           }
         ],
@@ -155,7 +154,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 312.5
+    "width": 312.5,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -170,56 +170,56 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "cf989ba842b51481",
+  "active": "ae3e475a1bc324f1",
   "lastOpenFiles": [
-    "draft/windows清理开始菜单.md",
-    "draft/题目清单.md",
-    "draft/堆.md",
+    "draft/政治.md",
+    "src/dotfile/clang相关.md",
+    "src/cmake/cmake示例.md",
+    "draft/toggleterm.md",
     "draft/pacman.md",
+    "src/资源汇总.md",
+    "draft/lldb.md",
+    "draft/题目清单.md",
+    "src/pytorch基础.md",
+    "draft/uv使用.md",
+    "draft/fzf.md",
+    "src/zellij.md",
     "src/git.md",
+    "images/Pasted image 20251119222525.png",
+    "src/vim.md",
+    "src/neovim.md",
+    "src/dotfile/vscode.md",
+    "src/dotfile/settings.json",
+    "src/dotfile/keybindings.json",
+    "draft/Untitled 1.base",
+    "draft/Untitled.base",
+    "draft/windows清理开始菜单.md",
+    "draft/堆.md",
     "draft/字幕提示.md",
     "src/cpp/lambda.md",
     "src/cpp/print函数.md",
-    "src/vim.md",
     "draft/cpp时间获取.md",
     "draft/cpp指定概率随机.md",
     "draft/计算机网络.md",
     "draft/差错检测.md",
     "src/cpp/随机数.md",
     "images/Pasted image 20251022144819.png",
-    "draft/stl算法（batch operations）.md",
-    "draft/Pavel Durov专访.md",
-    "代办事项.md",
-    "dailynote/2025-10-18.md",
-    "src/linux/archlinux安装.md",
-    "src/cmake/cmake示例.md",
-    "src/dotfile/clang相关.md",
-    "draft/STL算法（search operations）.md",
-    "draft/IO基础.md",
-    "src/linux/archlinux.md",
-    "src/zellij.md",
-    "dailynote/2025-09-13.md",
     "images/2dc465e1a4173354e84719f8013abcaf.jpg",
     "images/78dba29fea6abce4835787bf0bac4c2c.jpg",
     "images/d00bf2d7d77e63bb378dfe3dea67aa39.jpg",
-    "draft/Untitled.base",
     "images/Pasted image 20250912221223.png",
     "dailynote",
     "canvas/Untitled 1.canvas",
     "canvas/Untitled.canvas",
-    "draft/Untitled 1.base",
     "images/Pasted image 20250820113441.png",
     "images/Pasted image 20250819214215.png",
     "src/408",
     "src/cpp/语法",
     "images/Pasted image 20250529201746.png",
     "images/Pasted image 20250529201521.png",
-    "images/Pasted image 20250529201421.png",
     "Excalidraw",
     "src/cmake",
     "src/linux",
-    "src/算法",
-    "src/cpp",
     "canvas/demo.canvas",
     "未命名.canvas",
     "Untitled.canvas"

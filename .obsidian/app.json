@@ -12,5 +12,6 @@
   "useMarkdownLinks": true,
   "newFileLocation": "folder",
   "newFileFolderPath": "draft",
-  "readableLineLength": true
+  "readableLineLength": true,
+  "showUnsupportedFiles": true
 }

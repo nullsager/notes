@@ -30,3 +30,28 @@
 alias glg="git log --graph --oneline --decorate --all"
 alias gs="git stash push -m"
 ```
+
+查看远端：
+
+```bash
+git remote -v
+```
+
+
+
+选中分支：在 Local Branches 面板中，使用 ↑ / ↓ 键选中你想切换的目标分支。
+
+执行切换：按 Space (空格键)。
+
+使用 R：raname 分支名
+
+n：创建新分支
+
+fatal：refusing to merge unrelated histories 的解决方案：
+
+```bash
+# 这里需要看一看远程的分支名是不是叫main
+git pull origin main --allow-unrelated-histories
+```
+
+使用 `+` 放大某一个面板的大小

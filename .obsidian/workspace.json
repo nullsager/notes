@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "draft/政治.md",
+                "file": "README.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "政治"
+              "title": "README"
             }
           },
           {
@@ -153,27 +153,17 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "draft/fzf.md",
+                "file": "README.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of fzf"
-            }
-          },
-          {
-            "id": "9edb77d6b8afe4f5",
-            "type": "leaf",
-            "state": {
-              "type": "git-view",
-              "state": {},
-              "icon": "git-pull-request",
-              "title": "Source Control"
+              "title": "Outline of README"
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -195,8 +185,8 @@
   },
   "active": "e930b6187a86d0a9",
   "lastOpenFiles": [
-    "src/git.md",
     "draft/政治.md",
+    "src/git.md",
     "draft/uv使用.md",
     "src/dotfile/settings.json",
     "src/dotfile/keybindings.json",

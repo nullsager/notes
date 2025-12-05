@@ -13,6 +13,20 @@
             "state": {
               "type": "markdown",
               "state": {
+                "file": "draft/政治.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "政治"
+            }
+          },
+          {
+            "id": "5f016044980bca95",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
                 "file": "src/git.md",
                 "mode": "source",
                 "source": false
@@ -78,8 +92,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "83b519610f9053ef",
@@ -148,14 +161,23 @@
               "icon": "lucide-list",
               "title": "Outline of fzf"
             }
+          },
+          {
+            "id": "9edb77d6b8afe4f5",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
-    "width": 312.5,
-    "collapsed": true
+    "width": 312.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -167,11 +189,13 @@
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
       "oz-clear-unused-images:Clear Unused Images": false,
-      "obsidian-excalidraw-plugin:New drawing": false
+      "obsidian-excalidraw-plugin:New drawing": false,
+      "obsidian-git:Open Git source control": false
     }
   },
   "active": "e930b6187a86d0a9",
   "lastOpenFiles": [
+    "src/git.md",
     "draft/政治.md",
     "draft/uv使用.md",
     "src/dotfile/settings.json",
@@ -188,7 +212,6 @@
     "draft/题目清单.md",
     "src/pytorch基础.md",
     "src/zellij.md",
-    "src/git.md",
     "src/vim.md",
     "src/neovim.md",
     "src/dotfile/vscode.md",

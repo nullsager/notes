@@ -63,3 +63,17 @@ s 能合并提交
 d 删除提交
 
 z 撤销
+
+
+git 中文问题
+
+```
+# 让 Git 正确处理中文路径
+git config --global core.quotepath false
+
+# 设置 UTF-8 编码
+git config --global i18n.commitencoding utf-8
+git config --global i18n.logoutputencoding utf-8
+```
+
+---

@@ -291,5 +291,14 @@
       ],
       "key": "H"
     }
+  ],
+  "file-explorer:new-file-in-new-pane": [],
+  "theme:toggle-light-dark": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "5"
+    }
   ]
 }

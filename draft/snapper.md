@@ -53,3 +53,9 @@ snapper -c home undochange 想回档数字..0
 ```
 
 0 代表当前版本
+
+删除快照：
+
+```
+snapper -c root delete 3-6
+```

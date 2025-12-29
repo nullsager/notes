@@ -32,3 +32,8 @@ root?
 
 快照位置：`/path/to/subvolume/.snapshots/快照编号/snapshot`
 
+创建快照：
+
+```
+snapper -c root create --description "helloworld"
+```

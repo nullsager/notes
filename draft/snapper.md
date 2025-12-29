@@ -6,9 +6,11 @@
 snapper -c root create-config /
 ```
 
-位置：`/etc/snapper/configs/root`
+配置位置：`/etc/snapper/configs/root`
 
 root?
 
 /@home?
+
+快照位置：`/path/to/subvolume/.snapshots/快照编号/snapshot`
 

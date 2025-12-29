@@ -1,5 +1,9 @@
 #linux 
 
+安装：
+```
+sudo pacman -S snapper snap-pac btrfs-assistant
+```
 创建的是配置。
 
 ```

@@ -22,6 +22,7 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 ```
 snapper -c root create-config /
+snapper -c home create-config /home
 ```
 
 配置位置：`/etc/snapper/configs/root`
@@ -36,6 +37,7 @@ root?
 
 ```
 snapper -c root create --description "helloworld"
+snapper -c home create --description "helloworld"
 ```
 
 列出快照

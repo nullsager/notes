@@ -12,6 +12,12 @@ sudo pacman -S grub-btrfs inotify-tools
 sudo systemctl enable --now grub-btrfsd
 ```
 
+生成 grub 菜单入口
+
+```
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+```
+
 创建的是配置。
 
 ```

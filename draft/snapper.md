@@ -37,3 +37,9 @@ root?
 ```
 snapper -c root create --description "helloworld"
 ```
+
+列出快照
+
+```
+snapper -c root list
+```

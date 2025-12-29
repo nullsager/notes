@@ -4,6 +4,14 @@
 ```
 sudo pacman -S snapper snap-pac btrfs-assistant
 ```
+
+自动生成快照启动项：
+
+```
+sudo pacman -S grub-btrfs inotify-tools
+sudo systemctl enable --now grub-btrfsd
+```
+
 创建的是配置。
 
 ```

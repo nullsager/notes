@@ -25,4 +25,9 @@ super + Q
 | `super+[`              | 将左侧那一列的窗口吸到当前所在列中    |
 | `super+]`              | 将右侧那一列的窗口吸到当前所在列中    |
 | `super+V`              | 将窗口在浮动和平铺之间切换        |
-| `super+shift+V`        |                      |
+| `super+shift+V`        | 将键盘焦点在平铺层和浮动层之间切换    |
+| `super+O`              | 打开全局预览图              |
+| `ptrSc`                | 截图                   |
+| `super+T`              | 打开 alacritty 终端      |
+| `super+D`              | 使用 fuzzel 打开应用       |
+| `super+alt+L`          | 锁屏                   |

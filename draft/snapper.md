@@ -45,3 +45,11 @@ snapper -c home create --description "helloworld"
 ```
 snapper -c root list
 ```
+
+回档家目录：
+
+```
+snapper -c home undochange 想回档数字..0
+```
+
+0 代表当前版本

@@ -13,5 +13,6 @@
   "newFileLocation": "folder",
   "newFileFolderPath": "draft",
   "readableLineLength": true,
-  "showUnsupportedFiles": true
+  "showUnsupportedFiles": true,
+  "focusNewTab": true
 }

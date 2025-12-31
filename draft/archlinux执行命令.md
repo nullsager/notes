@@ -19,3 +19,12 @@ systemctl enable --now NetworkManager
 adobe-source-han-sans-cn-fonts
 wqy-zenhei
 ```
+
+安装 nerd font：
+
+```
+sudo pacman -S ttf-jetbrains-mono-nerd
+fc-cache -fv
+fc-list
+```
+

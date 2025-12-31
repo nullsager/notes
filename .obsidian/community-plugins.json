@@ -3,5 +3,7 @@
   "obsidian-excalidraw-plugin",
   "easy-typing-obsidian",
   "obsidian-latex-suite",
-  "obsidian-git"
+  "obsidian-git",
+  "templater-obsidian",
+  "obsidian-tasks-plugin"
 ]

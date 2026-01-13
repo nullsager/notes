@@ -6,5 +6,5 @@
   "showViewHeader": true,
   "nativeMenus": false,
   "interfaceFontFamily": "FiraCode Nerd Font",
-  "showRibbon": false
+  "showRibbon": true
 }

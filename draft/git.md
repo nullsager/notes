@@ -77,3 +77,9 @@ git config --global i18n.logoutputencoding utf-8
 ```
 
 ---
+
+```
+git config --global user.name "lc"
+git config --global user.email "2981228126@qq.com"
+```
+

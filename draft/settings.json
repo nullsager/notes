@@ -1,10 +1,14 @@
+// VSCode 设置文件
+// 需要安装toggle插件
 {
   "window.titleBarStyle": "custom",
   "window.commandCenter": true,
   "editor.fontSize": 17,
   // 字体设置
-  "editor.fontFamily": "'FiraCode Nerd Font' ,Consolas, 'Courier New', monospace",
+  "editor.fontFamily": "'JetBrainsMono NF', 'FiraCode Nerd Font'",
+  // 控制连体字
   "editor.fontLigatures": true,
+  "editor.lineHeight": 1.3,
   // 图标设置
   "workbench.iconTheme": "material-icon-theme",
   // 缩进设置
@@ -12,10 +16,11 @@
     "editor.tabSize": 4
   },
   "editor.tabSize": 2,
+  "editor.cursorSurroundingLines": 10,
   // 是否显示缩略图
   "editor.minimap.enabled": true,
   // 粘滞滚动关闭 end
-  "editor.stickyScroll.enabled": false,
+  "editor.stickyScroll.enabled": true,
   "editor.mouseWheelZoom": true,
   "workbench.sideBar.location": "left",
   "window.menuBarVisibility": "toggle",
@@ -23,6 +28,12 @@
   "editor.formatOnSave": true,
   "editor.cursorSmoothCaretAnimation": "on",
   "editor.cursorBlinking": "phase", // expand,smooth,phase
+  "zenMode.showTabs": "none", // "none": 不显示, "single": 只显示单个, "multiple": 显示多个
+  // 默认会隐藏行号，如果你需要行号，可以设为 false
+  "zenMode.hideLineNumbers": false,
+  // 隐藏滚动条
+  "editor.scrollbar.verticalScrollbarSize": 0,
+  "editor.scrollbar.horizontalScrollbarSize": 0,
   //////////////////////////////////////////////////////////////////////////////////////////
   // vim 设置
   // 相对行号
@@ -34,7 +45,6 @@
   "vim.hlsearch": true,
   // 高亮要粘贴的内容
   "vim.highlightedyank.enable": true,
-  "vim.scrolloff": 10,
   // insert模式映射
   "vim.insertModeKeyBindings": [
     {
@@ -187,7 +197,7 @@
       "before": [
         "<leader>",
         "u",
-        "c"
+        "C"
       ],
       "commands": [
         "workbench.action.selectTheme"
@@ -230,6 +240,39 @@
       ],
       "commands": [
         "workbench.action.openRecent"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "c",
+        "r"
+      ],
+      "commands": [
+        "editor.action.rename"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "u",
+        "d"
+      ],
+      "commands": [
+        {
+          "command": "toggle",
+          "args": {
+            "id": "problems", // 随便起一个就行
+            "value": [
+              {
+                "problems.visibility": false
+              }, // 第一次按：关掉所有波浪线
+              {
+                "problems.visibility": true
+              } // 再按一次：重新打开
+            ]
+          }
+        }
       ]
     },
   ],
@@ -279,13 +322,17 @@
   "vim.easymotion": true,
   //////////////////////////////////////////////////////////////////////////////////////////
   // latex
-  "latex-workshop.latex.autoBuild.run": "never",
+  // --- 基础体验优化 ---
+  "latex-workshop.latex.autoBuild.run": "onSave", // 建议改为保存时自动编译，效率更高
   "latex-workshop.showContextMenu": true,
   "latex-workshop.intellisense.package.enabled": true,
-  "latex-workshop.message.error.show": false,
-  "latex-workshop.message.warning.show": false,
+  // [重要] 开启错误提示，否则出错你都不知道
+  "latex-workshop.message.error.show": true,
+  "latex-workshop.message.warning.show": false, // 警告可以不弹窗，看面板即可
+  // --- 工具定义 (Tools) ---
   "latex-workshop.latex.tools": [
     {
+      // 方案1: 纯 XeLaTeX (用于简单文档)
       "name": "xelatex",
       "command": "xelatex",
       "args": [
@@ -296,24 +343,16 @@
       ]
     },
     {
-      "name": "pdflatex",
-      "command": "pdflatex",
-      "args": [
-        "-synctex=1",
-        "-interaction=nonstopmode",
-        "-file-line-error",
-        "%DOC%"
-      ]
-    },
-    {
+      // 方案2: 智能编译 (推荐! 自动处理引用和多次编译)
+      // 这个工具会自动判断是用 xelatex 还是 pdflatex，并自动运行 bibtex
       "name": "latexmk",
       "command": "latexmk",
       "args": [
         "-synctex=1",
         "-interaction=nonstopmode",
         "-file-line-error",
-        "-pdf",
-        "-outdir=%OUTDIR%",
+        "-pdf", // 默认生成pdf
+        "-xelatex", // 强制使用 xelatex 引擎 (适合中文环境)
         "%DOC%"
       ]
     },
@@ -321,54 +360,38 @@
       "name": "bibtex",
       "command": "bibtex",
       "args": [
-        "%DOC%"
+        "%DOCFILE%"
       ]
     }
   ],
+  // --- 流程定义 (Recipes) ---
   "latex-workshop.latex.recipes": [
     {
-      "name": "XeLaTeX",
-      "tools": [
-        "xelatex"
-      ]
-    },
-    {
-      "name": "PDFLaTeX",
-      "tools": [
-        "pdflatex"
-      ]
-    },
-    {
-      "name": "BibTeX",
-      "tools": [
-        "bibtex"
-      ]
-    },
-    {
-      "name": "LaTeXmk",
+      // [首选] 将 latexmk 放在第一位，作为默认编译方式
+      "name": "Lazy Build (latexmk)",
       "tools": [
         "latexmk"
       ]
     },
     {
-      "name": "xelatex -> bibtex -> xelatex*2",
+      // 备用：手动单次编译
+      "name": "XeLaTeX (Simple)",
+      "tools": [
+        "xelatex"
+      ]
+    },
+    {
+      // 备用：经典手动链 (通常不需要，除非 latexmk 失效)
+      "name": "XeLaTeX -> BibTeX -> XeLaTeX*2",
       "tools": [
         "xelatex",
         "bibtex",
         "xelatex",
         "xelatex"
       ]
-    },
-    {
-      "name": "pdflatex -> bibtex -> pdflatex*2",
-      "tools": [
-        "pdflatex",
-        "bibtex",
-        "pdflatex",
-        "pdflatex"
-      ]
-    },
+    }
   ],
+  // --- 清理设置 ---
   "latex-workshop.latex.clean.fileTypes": [
     "*.aux",
     "*.bbl",
@@ -388,22 +411,23 @@
     "*.ist",
     "*.fls",
     "*.log",
-    "*.fdb_latexmk"
+    "*.fdb_latexmk",
+    "*.synctex.gz"
   ],
-  "latex-workshop.latex.autoClean.run": "onFailed",
-  "latex-workshop.latex.recipe.default": "lastUsed",
-  "latex-workshop.view.pdf.internal.synctex.keybinding": "double-click",
+  // [重要] 编译失败不要自动清理，否则看不到 log 日志
+  "latex-workshop.latex.autoClean.run": "never",
+  // --- PDF 阅读器 ---
   "latex-workshop.view.pdf.viewer": "tab",
-  "latex-workshop.view.pdf.ref.viewer": "auto", // latex配置结束
+  "latex-workshop.view.pdf.internal.synctex.keybinding": "double-click",
   ///////////////////////////////////////////////////////////////////////////////////////
   "workbench.colorCustomizations": {
-    "statusBar.background": "#8FBCBB",
     "statusBar.noFolderBackground": "#8FBCBB",
     "statusBar.debuggingBackground": "#8FBCBB",
     "statusBar.foreground": "#434C5E",
-    "statusBar.debuggingForeground": "#434C5E"
+    "statusBar.debuggingForeground": "#434C5E",
+    "statusBar.background": "#8FBCBB"
   },
-  "editor.cursorSurroundingLines": 10,
-  "workbench.colorTheme": "GitHub Dark",
+  "workbench.colorTheme": "One Dark Pro Night Flat",
+  "problems.visibility": true,
   "workbench.activityBar.location": "hidden",
 }

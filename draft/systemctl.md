@@ -76,3 +76,85 @@ systemctl --user list-units --type=service --state=running
 *   **查开机自启**：`systemctl list-unit-files --state=enabled`
 *   **查修改差异**：`systemd-delta` (强烈推荐)
 *   **查正在运行**：`systemctl list-units --state=running`
+
+在 Arch Linux (systemd) 中，**“现在的状态”**（运行/停止）和**“未来的状态”**（开机自启/禁止自启）是两个独立的概念。
+
+你需要根据需求组合使用以下命令（大部分需要 `sudo` 权限）：
+
+### 1. 改变“当前”状态（立即生效，不影响重启后）
+
+如果你只想现在让它跑起来，或者现在关掉它：
+
+*   **启动服务**：
+    ```bash
+    sudo systemctl start 服务名
+    ```
+*   **停止服务**：
+    ```bash
+    sudo systemctl stop 服务名
+    ```
+*   **重启服务**（修改配置文件后常用）：
+    ```bash
+    sudo systemctl restart 服务名
+    ```
+
+### 2. 改变“开机自启”状态（重启后生效，不影响当前）
+
+如果你希望它下次开机自动运行，或者取消自动运行：
+
+*   **开启开机自启**：
+    ```bash
+    sudo systemctl enable 服务名
+    ```
+*   **关闭开机自启**：
+    ```bash
+    sudo systemctl disable 服务名
+    ```
+
+---
+
+### 3. ⭐ 组合拳（推荐：既要现在运行，又要开机自启）
+
+在 Arch Linux 中，我们最常使用的其实是 `--now` 参数，它可以把上面两步合并成一步：
+
+*   **设置为开机自启，并且立刻启动它**：
+    ```bash
+    sudo systemctl enable --now 服务名
+    ```
+    *(等同于先 enable 再 start)*
+
+*   **取消开机自启，并且立刻停止它**：
+    ```bash
+    sudo systemctl disable --now 服务名
+    ```
+    *(等同于先 disable 再 stop)*
+
+---
+
+### 4. 如何确认我设置成功了？
+
+查看服务状态是最稳妥的方法：
+
+```bash
+systemctl status 服务名
+```
+
+**看输出结果的这两个地方：**
+
+1.  **`Loaded: ...; enabled/disabled; ...`**
+    *   `enabled`：表示**开机自启**已开启。
+    *   `disabled`：表示**开机自启**已关闭。
+2.  **`Active: active (running) / inactive (dead)`**
+    *   `active (running)`：表示**现在**正在运行。
+    *   `inactive (dead)`：表示**现在**没运行。
+
+### 实战举例
+
+假设你要操作蓝牙服务（`bluetooth`）：
+
+*   **我要用蓝牙，以后开机也要自动开**：
+    `sudo systemctl enable --now bluetooth`
+*   **我暂时不用蓝牙，关了它，但下次重启还要自动开**：
+    `sudo systemctl stop bluetooth`
+*   **我以后再也不想用蓝牙了，现在也给我关了**：
+    `sudo systemctl disable --now bluetooth`

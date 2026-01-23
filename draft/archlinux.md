@@ -1,3 +1,4 @@
+#linux 
 # archlinux 相关
 
 ## archwsl 安装

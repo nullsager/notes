@@ -158,3 +158,9 @@ systemctl status 服务名
     `sudo systemctl stop bluetooth`
 *   **我以后再也不想用蓝牙了，现在也给我关了**：
     `sudo systemctl disable --now bluetooth`
+
+
+```
+killall clash-verge
+pkill clash-verge
+```

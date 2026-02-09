@@ -70,3 +70,8 @@ unproxy() {
 * 安装nodejs和npm：`sudo pacman -S nodejs npm`
 
 * 截图:`sudo pacman -S flameshot`
+
+```
+sudo pacman -S open-vm-tools gtkmm3 xf86-video-vmware
+sudo systemctl enable --now vmtoolsd
+```

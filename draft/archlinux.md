@@ -75,3 +75,25 @@ unproxy() {
 sudo pacman -S open-vm-tools gtkmm3 xf86-video-vmware
 sudo systemctl enable --now vmtoolsd
 ```
+
+
+## 在 Arch Linux 中挂载目录
+
+Arch Linux 默认需要安装 open-vm-tools 才能访问共享文件夹。如果未安装，请在终端执行：
+```bash
+sudo pacman -S open-vm-tools gtkmm 3
+sudo systemctl enable --now vmtoolsd
+```
+
+查看共享文件夹名称：
+```bash
+vmware-hgfsclient
+```
+
+创建挂载点并挂载：
+```bash
+sudo mkdir -p /mnt/hgfs
+sudo vmhgfs-fuse .host:/ /mnt/hgfs -o subtype=vmhgfs-fuse, allow_other
+```
+
+此时，可以在 /mnt/hgfs 目录下看到刚才设置的 Windows 共享文件夹。

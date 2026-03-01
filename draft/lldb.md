@@ -1,3 +1,6 @@
+```
+ echo "set debuginfod enabled off" >> ~/.gdbinit
+```
 ### LLDB 的核心理念与命令结构
 
 LLDB 的命令遵循一种非常清晰的结构：

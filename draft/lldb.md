@@ -1,6 +1,21 @@
 ```
  echo "set debuginfod enabled off" >> ~/.gdbinit
 ```
+
+```
+cmake -B build -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Debug -DENABLE_ASAN=ON  
+```
+
+```
+g++ main.cpp -o main -g -fsanitize=address,undefined
+```
+
+```
+# 对应 "-fsanitize=address,undefined"：为我们的 main 目标添加检查工具
+# 注意：Sanitizer 既需要在编译时(compile)加，也需要在链接时(link)加
+target_compile_options(main PRIVATE -fsanitize=address,undefined)
+target_link_options(main PRIVATE -fsanitize=address,undefined)
+```
 ### LLDB 的核心理念与命令结构
 
 LLDB 的命令遵循一种非常清晰的结构：

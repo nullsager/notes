@@ -83,3 +83,8 @@ line-ending = "auto"
 # 8. isort 配置 (将标准库、第三方库、本地库分开)
 known-first-party = ["my_project_name"]
 ```
+
+```
+uv python install 3.12
+uv python pin 3.12
+```

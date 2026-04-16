@@ -84,7 +84,8 @@ line-ending = "auto"
 known-first-party = ["my_project_name"]
 ```
 
-```
+```bash
 uv python install 3.12
 uv python pin 3.12
 ```
+

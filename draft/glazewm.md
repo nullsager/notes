@@ -67,14 +67,14 @@
 ---
 
 ## 6. 系统与杂项操作
-| 快捷键 | 命令 | 作用 |
-|--------|------|------|
-| `alt+shift+q` | `close` | 关闭当前聚焦的窗口 |
-| `alt+shift+e` | `wm-exit` | 安全退出 GlazeWM 进程 |
-| `alt+shift+r` | `wm-reload-config` | 重新加载配置文件（热重载） |
-| `alt+shift+w` | `wm-redraw` | 强制重绘所有窗口（解决渲染异常） |
-| `alt+enter` | `shell-exec cmd` | 启动 CMD 终端（可自行改为 `wt` 启动 Windows Terminal 等） |
-| `alt+shift+p` | `wm-toggle-pause` | 暂停 GlazeWM 的所有窗口管理和快捷键（按 `alt+shift+p` 恢复） |
+| 快捷键           | 命令                 | 作用                                          |
+| ------------- | ------------------ | ------------------------------------------- |
+| `alt+shift+q` | `close`            | 关闭当前聚焦的窗口                                   |
+| `alt+shift+e` | `wm-exit`          | 安全退出 GlazeWM 进程                             |
+| `alt+shift+r` | `wm-reload-config` | 重新加载配置文件（热重载）                               |
+| `alt+shift+w` | `wm-redraw`        | 强制重绘所有窗口（解决渲染异常）                            |
+| `alt+enter`   | `shell-exec cmd`   | 启动 CMD 终端（可自行改为 `wt` 启动 Windows Terminal 等） |
+| `alt+shift+p` | `wm-toggle-pause`  | 暂停 GlazeWM 的所有窗口管理和快捷键（按 `alt+shift+p` 恢复）  |
 
 ---
 

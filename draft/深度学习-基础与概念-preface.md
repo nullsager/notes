@@ -97,8 +97,11 @@ We have chosen not to discuss ethical or societal aspects of the use of deep lea
 我们选择不去讨论深度学习使用中的伦理和社会层面的问题，因为这些话题非常的重要和复杂，它们需要比在这样的技术教科书中更彻底的处理。
 
 
-Such considerations should, however,
-be informed by a solid grounding in the underlying technology and how it works,
+> [!NOTE] 
+> warrant 需要，理应得到
+
+
+Such considerations should, however, be informed by a solid grounding in the underlying technology and how it works,
 and so we hope that this book will make a valuable contribution towards these important discussions. The reader is, nevertheless, strongly encouraged to be mindful
 about the broader implications of their work and to learn about the responsible use
 of deep learning and artificial intelligence alongside their studies of the technology

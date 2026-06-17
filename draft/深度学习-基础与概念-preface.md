@@ -1,3 +1,5 @@
+#ai #读书笔记
+
 Deep learning uses multilayered neural networks trained with large data sets to
 solve complex information processing tasks and has emerged as the most successful paradigm in the field of machine learning.
 
@@ -28,6 +30,7 @@ driving one of the biggest disruptions in the history of technology.
 > [!NOTE]
 > known as 这里翻译为被称为，comprise 译为组成，包含，the order of 译为... 的数量级，exhibit 这里译为显示出，first indications 译为初步迹象，disruptions 译为颠覆
 
+## Goals of the book
 
 This expanding impact has been accompanied by an explosion in the number
 and breadth of research publications in machine learning, and the pace of innovation continues to accelerate. 
@@ -63,11 +66,40 @@ This material will equip the reader with a strong basis for future specializatio
 Due to the breadth and pace of change in the field, we have deliberately
 avoided trying to create a comprehensive survey of the latest research. Instead, much of the value of the book derives from a distillation of key ideas, and although the field itself can be expected to continue its rapid advance, these foundations and concepts are likely to stand the test of time. 
 
-鉴于深度学习领域知识的广度和变化速度，我们有意避免写一本涵盖最新研究的全面综述。相反，
+鉴于深度学习领域知识的广度和变化速度，我们有意避免写一本涵盖最新研究的全面综述。相反，这本书的大部分价值来自对关键思想的提炼，尽管这个领域本身有望继续快速发展，但这些基础和概念很可能经受住时间的考验。
 
 > [!NOTE] 
-> comprehensive survey 全面综述
+> comprehensive survey 全面综述，derive from 来自 distillation 提炼 rapid advance 快速发展 
 
-For example, large language models have been
-evolving very rapidly at the time of writing, yet the underlying transformer architecture and attention mechanism have remained largely unchanged for the last five
-years, while many core principles of machine learning have been known for decades.
+For example, large language models have been evolving very rapidly at the time of writing, yet the underlying transformer architecture and attention mechanism have remained largely unchanged for the last five years, while many core principles of machine learning have been known for decades.
+
+例如，在撰写本书时，大预言模型正在迅速演进，然而其底层的 Transformer 架构和注意力机制在过去 5 年基本保持不变，并且机器学习的许多核心原则已被人们熟知数十年。
+
+> [!NOTE] 
+> mechanism 机制
+
+## Responsible use of technology
+
+Deep learning is a powerful technology with broad applicability that has the potential to create huge value for the world and address some of society’s most pressing challenges. 
+
+深度学习是一项功能强大、适用范围广泛的技术，具有为世界创造巨大价值和应对社会最紧迫挑战的潜力。
+
+However, these same attributes mean that deep learning also has potential both for deliberate misuse and to cause unintended harms. 
+
+然而，这些相同的属性也意味着深度学习技术可能会被故意滥用并造成意外伤害
+
+
+> [!NOTE] 
+> attribute 特点，属性
+
+We have chosen not to discuss ethical or societal aspects of the use of deep learning, as these topics are of such importance and complexity that they warrant a more thorough treatment than is possible in a technical textbook such as this. 
+
+我们选择不去讨论深度学习使用中的伦理和社会层面的问题，因为这些话题非常的重要和复杂，它们需要比在这样的技术教科书中更彻底的处理。
+
+
+Such considerations should, however,
+be informed by a solid grounding in the underlying technology and how it works,
+and so we hope that this book will make a valuable contribution towards these important discussions. The reader is, nevertheless, strongly encouraged to be mindful
+about the broader implications of their work and to learn about the responsible use
+of deep learning and artificial intelligence alongside their studies of the technology
+itself.

@@ -113,4 +113,10 @@ Such considerations should, however, be informed by a solid grounding in the und
 The reader is, nevertheless, strongly encouraged to be mindful about the broader implications of their work and to learn about the responsible use
 of deep learning and artificial intelligence alongside their studies of the technology itself.
 
+尽管如此，强烈建议读者注意他们工作的更广泛含义，并在研究技术本身的同时，学习如何负责任地使用深度学习和人工智能。
+
+
+> [!NOTE] 
+> implication 含义 be mindful about 注意 alongside 同时
+
 

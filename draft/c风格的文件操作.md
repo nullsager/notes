@@ -1,3 +1,4 @@
+#cpp 
 # 文件操作
 ## fopen 函数
 函数原型：`FILE *fopen(const char *filename, const char *mode);`

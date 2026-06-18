@@ -1,3 +1,4 @@
+#linux 
 # git 学习
 
 # windows下的gitbash中文乱码

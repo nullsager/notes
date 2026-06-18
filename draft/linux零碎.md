@@ -1,3 +1,4 @@
+#linux 
 # linux 的一些零碎知识点
 
 ## pacman 使用

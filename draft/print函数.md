@@ -1,3 +1,5 @@
+#cpp 
+
 ```cpp
 int main() {
   std::println("|{:<10}|", "left");     // 左对齐，宽度10

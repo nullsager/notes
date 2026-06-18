@@ -156,12 +156,30 @@ probability theory and includes an appendix that summarizes some useful results 
 
 本书提供了概率论所需概念的独立介绍，并包括一个附录，总结了线性代数中一些有用的结果。
 
-It is assumed that the reader already has some familiarity with the
-basic concepts of multivariate calculus although there are appendices that provide
-introductions to the calculus of variations and to Lagrange multipliers. The focus
-of the book, however, is on conveying a clear understanding of ideas, and the emphasis is on techniques that have real-world practical value rather than on abstract
-theory. Where possible we try to present more complex concepts from multiple complementary perspectives including textual description, diagrams, and mathematical
-formulae. In addition, many of the key algorithms discussed in the text are summarized in separate boxes. These do not address issues of computational efficiency, but
-are provided as a complement to the mathematical explanations given in the text.
-We therefore hope that the material in this book will be accessible to readers from a
-variety of backgrounds.
+It is assumed that the reader already has some familiarity with the basic concepts of multivariate calculus although there are appendices that provide introductions to the calculus of variations and to Lagrange multipliers. 
+
+假定读者已经对多元微积分的基本概念有所熟悉，尽管有附录提供了对变分演算和拉格朗日乘数的介绍。
+
+The focus of the book, however, is on conveying a clear understanding of ideas, and the emphasis is on techniques that have real-world practical value rather than on abstract theory. 
+
+然而，这本书的重点是传达对思想的清晰理解，重点是具有现实世界实用价值的技术，而不是抽象的理论。
+
+Where possible we try to present more complex concepts from multiple complementary perspectives including textual description, diagrams, and mathematical formulae. 
+
+我们尽可能从多个互补的视角（例如文本描述、图表和数学公式）呈现复杂的概念。
+
+
+> [!NOTE] 
+> present 呈现 complementary 互补的 perspective 视角 diagram 图表
+
+In addition, many of the key algorithms discussed in the text are summarized in separate boxes. 
+
+此外，本文中讨论的许多关键算法在单独的方框中进行了总结。
+
+These do not address issues of computational efficiency, but are provided as a complement to the mathematical explanations given in the text.
+
+这些总结虽然没有提高算法的计算效率，但是补充了文中的数学说明。
+
+We therefore hope that the material in this book will be accessible to readers from a variety of backgrounds.
+
+因此，我们希望不同背景的读者都能理解本书中的内容。

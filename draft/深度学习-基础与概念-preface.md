@@ -129,4 +129,39 @@ The book has a linear structure in the sense that each chapter depends only on m
 
 这本书的结构是线性的，因为每一章都只依赖于前几章的内容。
 
+
+> [!NOTE] 
+> in the sense that 即，也就是说
+
 It is well suited to teaching a two-semester undergraduate or postgraduate course on machine learning but is equally relevant to those engaged in active research or in self-study.
+
+它非常适合教授两个学期的机器学习本科或研究生课程，但同样适用于那些从事积极研究或自学的人。
+
+
+> [!NOTE] 
+> be relevant to 与... 有关 engage in 从事
+
+
+A clear understanding of machine learning can be achieved only through the
+use of some level of mathematics. 
+
+对机器学习的清晰理解只能通过使用一定程度的数学来实现。
+
+Specifically, three areas of mathematics lie at the heart of machine learning: probability theory, linear algebra, and multivariate calculus. 
+
+具体来说，机器学习的核心由三个数学领域构成：概率论、线性代数和多元微积分（也称多变量微积分）​。
+
+The book provides a self-contained introduction to the required concepts in
+probability theory and includes an appendix that summarizes some useful results in linear algebra. 
+
+本书提供了概率论所需概念的独立介绍，并包括一个附录，总结了线性代数中一些有用的结果。
+
+It is assumed that the reader already has some familiarity with the
+basic concepts of multivariate calculus although there are appendices that provide
+introductions to the calculus of variations and to Lagrange multipliers. The focus
+of the book, however, is on conveying a clear understanding of ideas, and the emphasis is on techniques that have real-world practical value rather than on abstract
+theory. Where possible we try to present more complex concepts from multiple complementary perspectives including textual description, diagrams, and mathematical
+formulae. In addition, many of the key algorithms discussed in the text are summarized in separate boxes. These do not address issues of computational efficiency, but
+are provided as a complement to the mathematical explanations given in the text.
+We therefore hope that the material in this book will be accessible to readers from a
+variety of backgrounds.

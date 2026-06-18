@@ -119,4 +119,14 @@ of deep learning and artificial intelligence alongside their studies of the tech
 > [!NOTE] 
 > implication 含义 be mindful about 注意 alongside 同时
 
+## Structure of the book
 
+The book is structured into a relatively large number of smaller bite-sized chapters, each of which explores a specific topic.
+
+这本书由相对大量的小章节组成，每个章节都探讨了一个特定的主题。
+
+The book has a linear structure in the sense that each chapter depends only on material covered in earlier chapters. 
+
+这本书的结构是线性的，因为每一章都只依赖于前几章的内容。
+
+It is well suited to teaching a two-semester undergraduate or postgraduate course on machine learning but is equally relevant to those engaged in active research or in self-study.

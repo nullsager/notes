@@ -101,8 +101,8 @@ We have chosen not to discuss ethical or societal aspects of the use of deep lea
 > warrant 需要，理应得到
 
 
-Such considerations should, however, be informed by a solid grounding in the underlying technology and how it works,
-and so we hope that this book will make a valuable contribution towards these important discussions. The reader is, nevertheless, strongly encouraged to be mindful
-about the broader implications of their work and to learn about the responsible use
-of deep learning and artificial intelligence alongside their studies of the technology
-itself.
+Such considerations should, however, be informed by a solid grounding in the underlying technology and how it works, and so we hope that this book will make a valuable contribution towards these important discussions. 
+
+
+The reader is, nevertheless, strongly encouraged to be mindful about the broader implications of their work and to learn about the responsible use
+of deep learning and artificial intelligence alongside their studies of the technology itself.

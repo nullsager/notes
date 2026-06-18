@@ -103,6 +103,14 @@ We have chosen not to discuss ethical or societal aspects of the use of deep lea
 
 Such considerations should, however, be informed by a solid grounding in the underlying technology and how it works, and so we hope that this book will make a valuable contribution towards these important discussions. 
 
+然而，这些考虑应该通过对底层技术及其工作原理的坚实基础来了解，因此我们希望本书将对这些重要的讨论做出有价值的贡献。
+
+
+> [!NOTE] 
+> be informed by 通过... 了解 grounding 基础 underlying 根本的，潜在的
+
 
 The reader is, nevertheless, strongly encouraged to be mindful about the broader implications of their work and to learn about the responsible use
 of deep learning and artificial intelligence alongside their studies of the technology itself.
+
+

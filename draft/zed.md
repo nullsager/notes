@@ -42,14 +42,14 @@ Zed 借助语言服务器（LSP）、Git、Tree-sitter 等现代技术，提供�
 | 打开代码操作菜单 (Code actions) | `g .` |
 
 #### 2. Git 版本控制
-| 功能 | 默认快捷键 |
-| :--- | :--- |
-| 下一个 / 上一个 Git 变更 | `] c` / `[ c` |
-| 展开 Diff Hunk (差异块) | `d o` |
-| 切换 Staged (暂存) 状态 | `d O` |
-| Stage 并跳转下一个 (在 Diff 视图中) | `d u` |
-| Unstage 并跳转下一个 (在 Diff 视图中) | `d U` |
-| 恢复变更 (Restore / Revert) | `d p` |
+| 功能                          | 默认快捷键         |
+| :-------------------------- | :------------ |
+| 下一个 / 上一个 Git 变更            | `] c` / `[ c` |
+| 展开 Diff Hunk (差异块)          | `d o`         |
+| 切换 Staged (暂存) 状态           | `d O`         |
+| Stage 并跳转下一个 (在 Diff 视图中)   | `d u`         |
+| Unstage 并跳转下一个 (在 Diff 视图中) | `d U`         |
+| 恢复变更 (Restore / Revert)     | `d p`         |
 
 #### 3. Tree-sitter (语法树解析)
 Tree-sitter 让 Zed 能够理解代码结构，从而提供精准的跳转和文本对象。

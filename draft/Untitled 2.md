@@ -1,1213 +1,149 @@
-可以。下面把代码改写成更适合初学者阅读的版本，并且给每一步添加详细注释。
+这里为您提供一份使用 PyTorch 实现的手写数字识别代码。
 
-这段代码完成四套电路：
+该代码实现了一个包含一个隐藏层和一个输出层（即通常所说的**二层神经网络**）的模型，使用随机梯度下降（SGD）更新参数，数据集直接采用 `torchvision.datasets` 导入的 MNIST。代码设置了 mini-batch 大小为 100，总共训练 10,000 次（即 10,000 个 mini-batch 迭代），每训练 100 次计算并记录一次测试集上的准确率，并在最后绘制出准确率的变化图表。
 
-- 标记 $|00\rangle$；
-- 标记 $|01\rangle$；
-- 标记 $|10\rangle$；
-- 标记 $|11\rangle$。
-
-每套电路的结构都是：
-
-```text
-初始化 |00>
-    ↓
-H 门制备均匀叠加态
-    ↓
-Oracle 给目标态加负号
-    ↓
-Diffusion 放大目标态
-    ↓
-测量
-```
-
----
-
-# 一、带详细注释的完整代码
-
-可以将代码保存为 `grover_2qubit.py`。
-
-```python
-# ============================================================
-# 两量子比特 Grover 算法
-#
-# 功能：
-# 1. 初始状态为 |00>
-# 2. 使用 H 门制备均匀叠加态
-# 3. 使用 Oracle 给指定目标态加负号相位
-# 4. 使用 Diffusion 放大目标态的概率幅
-# 5. 测量两个量子比特
-#
-# 四个目标态分别是：
-# |00>、|01>、|10>、|11>
-#
-# 本代码约定：
-# target 字符串按照 |q0 q1> 的顺序书写
-#
-# 例如：
-# target = "01"
-# 表示：
-# q0 = 0
-# q1 = 1
-# ============================================================
-
-
-# QuantumCircuit：用于创建量子电路
-# transpile：将量子电路编译成模拟器可以执行的形式
-from qiskit import QuantumCircuit, transpile
-
-# AerSimulator：Qiskit Aer 提供的量子电路模拟器
-from qiskit_aer import AerSimulator
-
-
-# ============================================================
-# 第一部分：Oracle
-# ============================================================
-
-def apply_oracle(qc, target):
-    """
-    给指定目标态增加负号相位。
-
-    参数：
-        qc：
-            需要操作的量子电路。
-
-        target：
-            目标态字符串，只能是：
-            "00"、"01"、"10"、"11"
-
-            本程序按照 |q0 q1> 的顺序理解字符串。
-
-            例如：
-            target = "01"
-
-            表示目标态是：
-            |q0 q1> = |01>
-
-            即：
-            q0 = 0
-            q1 = 1
-
-    Oracle 的实现思想：
-        CZ 门只能直接给 |11> 加负号。
-
-        因此，如果目标态不是 |11>，就先使用 X 门，
-        把目标态临时变成 |11>。
-
-        接着使用 CZ 给 |11> 加负号。
-
-        最后再次使用相同的 X 门，把状态恢复。
-
-    例如，目标态为 |01>：
-
-        |01>
-          ↓ 对 q0 使用 X
-        |11>
-          ↓ 使用 CZ
-        -|11>
-          ↓ 再对 q0 使用 X
-        -|01>
-
-    因此，最终只有原来的 |01> 获得负号。
-    """
-
-    # --------------------------------------------------------
-    # 检查 target 是否合法
-    # --------------------------------------------------------
-
-    if target not in ["00", "01", "10", "11"]:
-        raise ValueError(
-            "target 必须是 '00'、'01'、'10' 或 '11'"
-        )
-
-    # --------------------------------------------------------
-    # 第一步：把目标态映射成 |11>
-    # --------------------------------------------------------
-    #
-    # 规则：
-    # 目标态中哪一位是 0，就对对应的量子比特使用 X 门。
-    #
-    # 原因：
-    # X|0> = |1>
-    # X|1> = |0>
-    #
-    # target[0] 表示 q0 的目标值。
-    # target[1] 表示 q1 的目标值。
-
-    # 如果目标态中 q0 是 0，
-    # 就对 q0 使用 X，把 q0 从 0 临时变成 1。
-    if target[0] == "0":
-        qc.x(0)
-
-    # 如果目标态中 q1 是 0，
-    # 就对 q1 使用 X，把 q1 从 0 临时变成 1。
-    if target[1] == "0":
-        qc.x(1)
-
-    # --------------------------------------------------------
-    # 第二步：使用 CZ 给 |11> 加负号
-    # --------------------------------------------------------
-    #
-    # CZ 对四个计算基态的作用：
-    #
-    # |00> ->  |00>
-    # |01> ->  |01>
-    # |10> ->  |10>
-    # |11> -> -|11>
-    #
-    # 前面的 X 门已经把目标态临时映射成了 |11>，
-    # 所以 CZ 此时会给目标态增加负号。
-
-    qc.cz(0, 1)
-
-    # --------------------------------------------------------
-    # 第三步：恢复状态标签
-    # --------------------------------------------------------
-    #
-    # 前面用过哪些 X 门，现在就再用一次。
-    #
-    # 因为：
-    # X·X = I
-    #
-    # 连续使用两次 X 相当于没有改变状态标签。
-    #
-    # 但 CZ 已经产生的负号会被保留下来。
-    #
-    # 这一步也可以叫做“反计算”。
-
-    if target[0] == "0":
-        qc.x(0)
-
-    if target[1] == "0":
-        qc.x(1)
-
-
-# ============================================================
-# 第二部分：Diffusion 扩散算子
-# ============================================================
-
-def apply_diffusion(qc):
-    """
-    在电路 qc 上添加两量子比特 Diffusion 模块。
-
-    电路的门顺序为：
-
-        H(q0), H(q1)
-        Z(q0), Z(q1)
-        CZ(q0, q1)
-        H(q0), H(q1)
-
-    电路图可以理解为：
-
-        q0: ──H──Z──●──H──
-                     │
-        q1: ──H──Z──●──H──
-
-    它实现两量子比特的扩散算子：
-
-        D = 2|s><s| - I
-
-    其中 |s> 是均匀叠加态。
-
-    Diffusion 的作用是：
-        将所有状态的概率幅关于平均值翻转。
-
-    如果某个概率幅原来是 a_i，
-    所有概率幅的平均值是 average，
-    那么执行后：
-
-        a_i' = 2 * average - a_i
-
-    在本作业中，Oracle 执行后：
-        目标态概率幅为 -1/2
-        其他三个状态概率幅为 1/2
-
-    Diffusion 执行后：
-        目标态概率幅变成 1
-        其他状态概率幅变成 0
-    """
-
-    # --------------------------------------------------------
-    # 第一步：对两个量子比特使用 H 门
-    # --------------------------------------------------------
-    #
-    # 这一组 H 门用于变换坐标系。
-    #
-    # 它把“关于均匀叠加态 |s> 的反射”
-    # 转换为更容易实现的
-    # “关于 |00> 的反射”。
-
-    qc.h(0)
-    qc.h(1)
-
-    # --------------------------------------------------------
-    # 第二步：对两个量子比特使用 Z 门
-    # --------------------------------------------------------
-    #
-    # Z 门的作用：
-    #
-    # Z|0> = |0>
-    # Z|1> = -|1>
-    #
-    # 两个 Z 门与后面的 CZ 组合起来，
-    # 可以实现：
-    #
-    # |00> ->  |00>
-    # |01> -> -|01>
-    # |10> -> -|10>
-    # |11> -> -|11>
-    #
-    # 也就是保留 |00> 的符号，
-    # 给另外三个状态增加负号。
-
-    qc.z(0)
-    qc.z(1)
-
-    # --------------------------------------------------------
-    # 第三步：使用 CZ
-    # --------------------------------------------------------
-    #
-    # CZ 会给 |11> 再增加一个负号。
-    #
-    # Z(q0)、Z(q1)、CZ 的整体作用为：
-    #
-    # |00> ->  |00>
-    # |01> -> -|01>
-    # |10> -> -|10>
-    # |11> -> -|11>
-    #
-    # 这就是关于 |00> 的相位反射。
-
-    qc.cz(0, 1)
-
-    # --------------------------------------------------------
-    # 第四步：再次对两个量子比特使用 H 门
-    # --------------------------------------------------------
-    #
-    # 前面的 H 门把坐标系转换到了 |00> 基准。
-    # 这里的 H 门负责把坐标系转换回来。
-    #
-    # 因为：
-    # H·H = I
-    #
-    # 前后两组 H 门加上中间的 Z、Z、CZ，
-    # 共同实现关于均匀叠加态 |s> 的反射。
-
-    qc.h(0)
-    qc.h(1)
-
-
-# ============================================================
-# 第三部分：创建一套完整电路
-# ============================================================
-
-def build_grover_circuit(target):
-    """
-    创建一套完整的两量子比特 Grover 电路。
-
-    参数：
-        target：
-            需要标记和搜索的目标态。
-
-            可以是：
-            "00"、"01"、"10"、"11"
-
-    返回：
-        qc：
-            构建完成的量子电路。
-    """
-
-    # --------------------------------------------------------
-    # 创建量子电路
-    # --------------------------------------------------------
-    #
-    # QuantumCircuit(2, 2) 表示：
-    #
-    # 第一个 2：
-    #     创建两个量子比特 q0、q1。
-    #
-    # 第二个 2：
-    #     创建两个经典比特 c0、c1。
-    #
-    # 量子比特用于量子计算。
-    # 经典比特用于保存最终的测量结果。
-
-    qc = QuantumCircuit(2, 2)
-
-    # --------------------------------------------------------
-    # 第一阶段：制备均匀叠加态
-    # --------------------------------------------------------
-    #
-    # 电路刚创建时，两个量子比特的初始状态都是 |0>。
-    #
-    # 所以初始状态是：
-    #
-    # |q0 q1> = |00>
-    #
-    # 分别给 q0、q1 使用 H 门：
-    #
-    # |00>
-    #   ↓ H(q0), H(q1)
-    #
-    # 1/2(|00> + |01> + |10> + |11>)
-    #
-    # 此时测量四个状态的概率都是 1/4。
-
-    qc.h(0)
-    qc.h(1)
-
-    # barrier 是电路屏障。
-    #
-    # 它不会改变量子态，也不会产生计算效果。
-    # 它只是把电路的不同阶段分隔开，
-    # 让绘制出来的电路图更容易阅读。
-    qc.barrier()
-
-    # --------------------------------------------------------
-    # 第二阶段：Oracle 相位标记
-    # --------------------------------------------------------
-    #
-    # Oracle 会给目标态的概率幅乘以 -1。
-    #
-    # 例如目标态是 |01>：
-    #
-    # Oracle 前：
-    #
-    # 1/2(|00> + |01> + |10> + |11>)
-    #
-    # Oracle 后：
-    #
-    # 1/2(|00> - |01> + |10> + |11>)
-    #
-    # 注意：
-    # Oracle 只改变相位，不直接改变测量概率。
-
-    apply_oracle(qc, target)
-
-    qc.barrier()
-
-    # --------------------------------------------------------
-    # 第三阶段：Diffusion 概率幅放大
-    # --------------------------------------------------------
-    #
-    # Diffusion 利用 Oracle 产生的相位差进行量子干涉。
-    #
-    # 它会让：
-    #
-    # 非目标态概率幅 -> 0
-    # 目标态概率幅   -> 1
-
-    apply_diffusion(qc)
-
-    qc.barrier()
-
-    # --------------------------------------------------------
-    # 第四阶段：测量
-    # --------------------------------------------------------
-    #
-    # Qiskit 输出经典测量结果时，通常按照高位经典比特
-    # 在左边、低位经典比特在右边的顺序显示。
-    #
-    # 也就是说，输出字符串一般按照：
-    #
-    # c1 c0
-    #
-    # 显示。
-    #
-    # 本程序希望输出字符串按照：
-    #
-    # q0 q1
-    #
-    # 显示。
-    #
-    # 因此进行如下对应：
-    #
-    # q0 测量到 c1
-    # q1 测量到 c0
-    #
-    # 这样最终显示的 c1c0 就对应 q0q1。
-
-    qc.measure(0, 1)
-    qc.measure(1, 0)
-
-    # 把构建好的量子电路返回
-    return qc
-
-
-# ============================================================
-# 第四部分：创建模拟器
-# ============================================================
-
-# AerSimulator 是理想量子电路模拟器。
-#
-# 它在经典计算机上模拟量子电路。
-#
-# 默认情况下，这里没有人为加入量子噪声。
-# 所以理论上每套电路都会百分之百测得目标态。
-
-simulator = AerSimulator()
-
-
-# ============================================================
-# 第五部分：依次执行四套电路
-# ============================================================
-
-# 四个需要搜索的目标态
-target_list = ["00", "01", "10", "11"]
-
-# 对四个目标态依次创建并执行量子电路
-for target in target_list:
-
-    # --------------------------------------------------------
-    # 1. 创建当前目标态对应的 Grover 电路
-    # --------------------------------------------------------
-
-    circuit = build_grover_circuit(target)
-
-    # --------------------------------------------------------
-    # 2. 编译量子电路
-    # --------------------------------------------------------
-    #
-    # transpile 会根据模拟器支持的指令，
-    # 对电路进行转换和优化。
-    #
-    # 原始电路：
-    #     circuit
-    #
-    # 编译后的电路：
-    #     compiled_circuit
-    #
-    # 注意：
-    # 编译后的电路可能在形式上发生变化，
-    # 但是它实现的逻辑功能不变。
-
-    compiled_circuit = transpile(
-        circuit,
-        simulator
-    )
-
-    # --------------------------------------------------------
-    # 3. 在模拟器上执行
-    # --------------------------------------------------------
-    #
-    # shots=1024 表示：
-    # 将同一套量子电路从头到尾重复执行 1024 次。
-    #
-    # 每次执行都包括：
-    # 初始化、H、Oracle、Diffusion 和测量。
-
-    job = simulator.run(
-        compiled_circuit,
-        shots=1024
-    )
-
-    # --------------------------------------------------------
-    # 4. 获得执行结果
-    # --------------------------------------------------------
-
-    result = job.result()
-
-    # --------------------------------------------------------
-    # 5. 统计每个测量结果出现的次数
-    # --------------------------------------------------------
-    #
-    # 例如：
-    #
-    # {'01': 1024}
-    #
-    # 表示执行 1024 次，
-    # 每一次都测量到了 01。
-
-    counts = result.get_counts()
-
-    # --------------------------------------------------------
-    # 6. 输出当前电路和测量结果
-    # --------------------------------------------------------
-
-    print()
-    print("=" * 70)
-    print(f"当前目标态：|{target}>")
-    print("=" * 70)
-
-    # draw(output="text") 用文本字符绘制量子电路
-    print(circuit.draw(output="text"))
-
-    print("测量次数：1024")
-    print("测量结果：", counts)
-
-
-# ============================================================
-# 程序结束
-# ============================================================
-```
-
----
-
-# 二、安装和运行
-
-如果还没有安装 Qiskit，可以在终端执行：
-
+### 准备工作
+在运行代码之前，请确保已安装以下依赖库：
 ```bash
-pip install qiskit qiskit-aer
+pip install torch torchvision matplotlib
 ```
 
-然后运行：
-
-```bash
-python grover_2qubit.py
-```
-
-理想结果类似：
-
-```text
-当前目标态：|00>
-测量结果： {'00': 1024}
-
-当前目标态：|01>
-测量结果： {'01': 1024}
-
-当前目标态：|10>
-测量结果： {'10': 1024}
-
-当前目标态：|11>
-测量结果： {'11': 1024}
-```
-
----
-
-# 三、从程序入口开始理解
-
-代码不是从第一个函数立即开始执行的。
-
-Python 首先定义了三个函数：
+### Python 实现代码
 
 ```python
-apply_oracle()
-apply_diffusion()
-build_grover_circuit()
+import torch
+import torch.nn as nn
+import torch.optim as optim
+from torchvision import datasets, transforms
+from torch.utils.data import DataLoader
+import matplotlib.pyplot as plt
+
+# 1. 定义超参数
+INPUT_SIZE = 784       # 输入层大小 (28x28 像素)
+HIDDEN_SIZE = 128      # 隐藏层神经元个数
+OUTPUT_SIZE = 10       # 输出层大小 (0-9 共10个数字)
+BATCH_SIZE = 100       # Mini-batch 大小
+TOTAL_STEPS = 10000    # 总训练次数（迭代步数）
+EVAL_INTERVAL = 100    # 每 100 次训练评估一次准确率
+LEARNING_RATE = 0.1    # 学习率
+
+# 检测设备 (若有GPU则使用GPU加速)
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+print(f"Using device: {device}")
+
+# 2. 准备 MNIST 数据集
+# 对图像进行归一化处理
+transform = transforms.Compose([
+    transforms.ToTensor(),
+    transforms.Normalize((0.1307,), (0.3081,))
+])
+
+train_dataset = datasets.MNIST(root='./data', train=True, download=True, transform=transform)
+test_dataset = datasets.MNIST(root='./data', train=False, download=True, transform=transform)
+
+train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
+# 测试时可一次性评估或分批评估，这里采用 batch_size=1000 提高评估效率
+test_loader = DataLoader(test_dataset, batch_size=1000, shuffle=False)
+
+
+# 3. 构建二层神经网络
+class TwoLayerNet(nn.Module):
+    def __init__(self, input_size, hidden_size, output_size):
+        super(TwoLayerNet, self).__init__()
+        # 第一层（输入层到隐藏层）
+        self.fc1 = nn.Linear(input_size, hidden_size)
+        # 激活函数
+        self.relu = nn.ReLU()
+        # 第二层（隐藏层到输出层）
+        self.fc2 = nn.Linear(hidden_size, output_size)
+
+    def forward(self, x):
+        # 将输入的三维图像 (batch, 1, 28, 28) 展平为二维 (batch, 784)
+        x = x.view(x.size(0), -1)
+        x = self.relu(self.fc1(x))
+        x = self.fc2(x)
+        return x
+
+
+model = TwoLayerNet(INPUT_SIZE, HIDDEN_SIZE, OUTPUT_SIZE).to(device)
+
+# 4. 定义损失函数和优化器
+criterion = nn.CrossEntropyLoss()
+# 使用随机梯度下降法 (SGD) 更新参数
+optimizer = optim.SGD(model.parameters(), lr=LEARNING_RATE)
+
+
+# 5. 定义模型评估函数
+def evaluate_accuracy(model, data_loader, device):
+    model.eval()  # 设置为评估模式
+    correct = 0
+    total = 0
+    with torch.no_grad():
+        for images, labels in data_loader:
+            images, labels = images.to(device), labels.to(device)
+            outputs = model(images)
+            _, predicted = torch.max(outputs.data, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
+    return 100.0 * correct / total
+
+
+# 6. 开始训练过程
+steps = []
+accuracies = []
+
+current_step = 0
+running_loss = 0.0
+finished = False
+
+print("开始训练...")
+while not finished:
+    for images, labels in train_loader:
+        if current_step >= TOTAL_STEPS:
+            finished = True
+            break
+
+        model.train()  # 设置为训练模式
+        images, labels = images.to(device), labels.to(device)
+
+        # 前向传播
+        outputs = model(images)
+        loss = criterion(outputs, labels)
+
+        # 反向传播与优化
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+
+        running_loss += loss.item()
+        current_step += 1
+
+        # 每训练 100 次，计算一次在测试集上的准确率
+        if current_step % EVAL_INTERVAL == 0:
+            avg_loss = running_loss / EVAL_INTERVAL
+            accuracy = evaluate_accuracy(model, test_loader, device)
+            
+            steps.append(current_step)
+            accuracies.append(accuracy)
+            
+            print(f"Step [{current_step}/{TOTAL_STEPS}] | Loss: {avg_loss:.4f} | Test Accuracy: {accuracy:.2f}%")
+            running_loss = 0.0
+
+print("训练完成。")
+
+# 7. 绘制准确率随训练变化的图表
+plt.figure(figsize=(10, 6))
+plt.plot(steps, accuracies, linestyle='-', color='b', label='Test Accuracy')
+plt.title('Accuracy vs. Training Steps (MNIST)')
+plt.xlabel('Training Steps (Mini-batches)')
+plt.ylabel('Accuracy (%)')
+plt.grid(True)
+plt.legend()
+plt.show()
 ```
 
-定义函数时，函数内部代码暂时不会执行。
-
-程序真正开始依次执行电路的位置是：
-
-```python
-simulator = AerSimulator()
-
-target_list = ["00", "01", "10", "11"]
-
-for target in target_list:
-    circuit = build_grover_circuit(target)
-    ...
-```
-
----
-
-## `for` 循环做了什么？
-
-下面的循环：
-
-```python
-for target in target_list:
-```
-
-会执行四次。
-
-第一次：
-
-```python
-target = "00"
-```
-
-第二次：
-
-```python
-target = "01"
-```
-
-第三次：
-
-```python
-target = "10"
-```
-
-第四次：
-
-```python
-target = "11"
-```
-
-每一次都会执行：
-
-```python
-circuit = build_grover_circuit(target)
-```
-
-所以最终构建并运行四套不同的量子电路。
-
----
-
-# 四、第一套电路如何执行？
-
-假设当前循环是：
-
-```python
-target = "00"
-```
-
-程序调用：
-
-```python
-circuit = build_grover_circuit("00")
-```
-
-## 第一步：创建电路
-
-```python
-qc = QuantumCircuit(2, 2)
-```
-
-此时有：
-
-- 两个量子比特：$q_0$、$q_1$；
-- 两个经典比特：$c_0$、$c_1$；
-- 量子初始态为 $|00\rangle$。
-
----
-
-## 第二步：制备叠加态
-
-```python
-qc.h(0)
-qc.h(1)
-```
-
-状态从：
-
-$$
-|00\rangle
-$$
-
-变成：
-
-$$
-\frac{1}{2}
-\left(
-|00\rangle+|01\rangle+|10\rangle+|11\rangle
-\right)
-$$
-
----
-
-## 第三步：调用 Oracle
-
-```python
-apply_oracle(qc, "00")
-```
-
-因为：
-
-```python
-target[0] == "0"
-```
-
-成立，所以执行：
-
-```python
-qc.x(0)
-```
-
-因为：
-
-```python
-target[1] == "0"
-```
-
-也成立，所以执行：
-
-```python
-qc.x(1)
-```
-
-然后执行：
-
-```python
-qc.cz(0, 1)
-```
-
-最后再执行：
-
-```python
-qc.x(0)
-qc.x(1)
-```
-
-因此标记 $|00\rangle$ 的 Oracle 实际门序列是：
-
-```python
-qc.x(0)
-qc.x(1)
-qc.cz(0, 1)
-qc.x(0)
-qc.x(1)
-```
-
-状态变成：
-
-$$
-\frac{1}{2}
-\left(
--|00\rangle+|01\rangle+|10\rangle+|11\rangle
-\right)
-$$
-
----
-
-## 第四步：执行 Diffusion
-
-```python
-apply_diffusion(qc)
-```
-
-添加的门是：
-
-```python
-qc.h(0)
-qc.h(1)
-
-qc.z(0)
-qc.z(1)
-
-qc.cz(0, 1)
-
-qc.h(0)
-qc.h(1)
-```
-
-经过 diffusion 后，状态变为：
-
-$$
-|00\rangle
-$$
-
----
-
-## 第五步：测量
-
-```python
-qc.measure(0, 1)
-qc.measure(1, 0)
-```
-
-因为 diffusion 后的状态是 $|00\rangle$，所以测量得到：
-
-```text
-00
-```
-
-在理想模拟器上重复 $1024$ 次：
-
-```text
-{'00': 1024}
-```
-
----
-
-# 五、Oracle 中的两个 `if` 怎么理解？
-
-Oracle 中最重要的是：
-
-```python
-if target[0] == "0":
-    qc.x(0)
-
-if target[1] == "0":
-    qc.x(1)
-```
-
-它的规则是：
-
-> 目标态的哪一位是 $0$，就对对应量子比特使用 $X$ 门。
-
-| `target` | `target[0]` | `target[1]` | CZ 前需要的 $X$ |
-|---|---|---|---|
-| `"00"` | `"0"` | `"0"` | $X(q_0)$、$X(q_1)$ |
-| `"01"` | `"0"` | `"1"` | $X(q_0)$ |
-| `"10"` | `"1"` | `"0"` | $X(q_1)$ |
-| `"11"` | `"1"` | `"1"` | 不需要 $X$ |
-
-原因是 CZ 只能直接标记 $|11\rangle$。
-
----
-
-## 例子：`target = "01"`
-
-此时：
-
-```python
-target[0]
-```
-
-是：
-
-```text
-"0"
-```
-
-而：
-
-```python
-target[1]
-```
-
-是：
-
-```text
-"1"
-```
-
-所以只有第一个条件成立：
-
-```python
-if target[0] == "0":
-    qc.x(0)
-```
-
-Oracle 的实际门序列是：
-
-```python
-qc.x(0)
-qc.cz(0, 1)
-qc.x(0)
-```
-
-目标态变化过程是：
-
-$$
-|01\rangle
-\xrightarrow{X(q_0)}
-|11\rangle
-\xrightarrow{CZ}
--|11\rangle
-\xrightarrow{X(q_0)}
--|01\rangle
-$$
-
----
-
-# 六、为什么测量代码看起来是反过来的？
-
-这里最容易让初学者困惑：
-
-```python
-qc.measure(0, 1)
-qc.measure(1, 0)
-```
-
-`measure()` 的第一个参数是量子比特，第二个参数是经典比特。
-
-所以：
-
-```python
-qc.measure(0, 1)
-```
-
-表示：
-
-```text
-测量 q0，把结果放进 c1
-```
-
-而：
-
-```python
-qc.measure(1, 0)
-```
-
-表示：
-
-```text
-测量 q1，把结果放进 c0
-```
-
-之所以交叉保存，是因为 Qiskit 显示经典测量字符串时，通常按照：
-
-```text
-c1c0
-```
-
-显示。
-
-我们希望结果按照：
-
-```text
-q0q1
-```
-
-显示，所以建立：
-
-```text
-c1 = q0
-c0 = q1
-```
-
-于是输出的：
-
-```text
-c1c0
-```
-
-恰好就是：
-
-```text
-q0q1
-```
-
-例如目标态是 $|01\rangle$：
-
-```text
-q0 = 0
-q1 = 1
-```
-
-测量保存为：
-
-```text
-c1 = 0
-c0 = 1
-```
-
-Qiskit 显示：
-
-```text
-c1c0 = 01
-```
-
-因此结果是：
-
-```python
-{"01": 1024}
-```
-
----
-
-# 七、如果不想处理 Qiskit 的顺序问题
-
-也可以采用 Qiskit 更常见的状态书写习惯，把状态写成：
-
-$$
-|q_1q_0\rangle
-$$
-
-然后直接测量：
-
-```python
-qc.measure(0, 0)
-qc.measure(1, 1)
-```
-
-但是这样代码里的目标态字符串也要按照 $q_1q_0$ 理解，容易和课堂上约定的 $|q_0q_1\rangle$ 混淆。
-
-所以本作业代码选择统一按照：
-
-$$
-|q_0q_1\rangle
-$$
-
-并在测量时交叉保存。
-
----
-
-# 八、`transpile()` 是什么？
-
-代码中有：
-
-```python
-compiled_circuit = transpile(
-    circuit,
-    simulator
-)
-```
-
-`transpile()` 可以理解成量子电路的编译器。
-
-你写的原始电路可能含有：
-
-```python
-qc.h(...)
-qc.x(...)
-qc.z(...)
-qc.cz(...)
-```
-
-但不同模拟器或真实量子计算机支持的基础门可能不同。
-
-`transpile()` 会负责：
-
-1. 检查目标后端支持哪些门；
-2. 必要时分解某些量子门；
-3. 优化电路；
-4. 输出后端可以执行的电路。
-
-要注意：
-
-```python
-circuit
-```
-
-是你搭建的原始电路，而：
-
-```python
-compiled_circuit
-```
-
-是编译后的电路。
-
-当前打印的是原始电路：
-
-```python
-print(circuit.draw(output="text"))
-```
-
-所以更容易看出课件要求的 $H$、$X$、$Z$ 和 CZ。
-
----
-
-# 九、`shots=1024` 是什么意思？
-
-下面的代码：
-
-```python
-job = simulator.run(
-    compiled_circuit,
-    shots=1024
-)
-```
-
-表示把整个电路重复执行 $1024$ 次。
-
-不是只重复测量同一个量子态，而是每次都重新进行：
-
-1. 初始化 $|00\rangle$；
-2. 制备均匀叠加态；
-3. 执行 Oracle；
-4. 执行 diffusion；
-5. 测量。
-
-因为理想情况下目标态概率为 $1$，所以结果应为：
-
-```python
-{"目标态": 1024}
-```
-
-例如：
-
-```python
-{"10": 1024}
-```
-
-表示 $1024$ 次都测量到了 $10$。
-
----
-
-# 十、代码和量子算法步骤的对应关系
-
-| 量子算法阶段 | 代码 |
-|---|---|
-| 创建两个量子比特，初始为 $ |00\rangle$ | `QuantumCircuit(2, 2)` |
-| 制备均匀叠加态 | `qc.h(0)`、`qc.h(1)` |
-| Oracle 相位标记 | `apply_oracle(qc, target)` |
-| Diffusion 概率幅放大 | `apply_diffusion(qc)` |
-| 测量 | `qc.measure(...)` |
-| 重复执行 | `shots=1024` |
-| 统计结果 | `result.get_counts()` |
-
----
-
-# 十一、最需要掌握的三个函数
-
-## `apply_oracle()`
-
-作用：
-
-> 给指定目标态增加负号相位。
-
-```python
-apply_oracle(qc, "01")
-```
-
-表示：
-
-$$
-|01\rangle\rightarrow-|01\rangle
-$$
-
-其他状态保持不变。
-
----
-
-## `apply_diffusion()`
-
-作用：
-
-> 利用 Oracle 产生的相位差，通过干涉放大目标态。
-
-```python
-apply_diffusion(qc)
-```
-
-四套电路都使用完全相同的 diffusion。
-
----
-
-## `build_grover_circuit()`
-
-作用：
-
-> 按照“叠加、Oracle、Diffusion、测量”的顺序，把完整电路组装起来。
-
-```python
-circuit = build_grover_circuit("10")
-```
-
-表示创建一套搜索 $|10\rangle$ 的完整电路。
-
----
-
-# 十二、一句话理解整段程序
-
-例如：
-
-```python
-circuit = build_grover_circuit("01")
-```
-
-就相当于告诉程序：
-
-> 创建两个量子比特，从 $|00\rangle$ 开始；先制备四个状态的均匀叠加；再给 $|01\rangle$ 增加负号；随后使用 diffusion 放大 $|01\rangle$；最后测量并输出 $01$。
-
-理论状态变化为：
-
-$$
-|00\rangle
-\xrightarrow{H\otimes H}
-\frac{1}{2}
-\left(
-|00\rangle+|01\rangle+|10\rangle+|11\rangle
-\right)
-$$
-
-$$
-\xrightarrow{Oracle}
-\frac{1}{2}
-\left(
-|00\rangle-|01\rangle+|10\rangle+|11\rangle
-\right)
-$$
-
-$$
-\xrightarrow{Diffusion}
-|01\rangle
-\xrightarrow{Measure}
-01
-$$
+### 代码逻辑说明：
+1. **数据准备**：通过 `torchvision.datasets` 下载并加载 MNIST 图像，对图像数据进行了归一化处理。由于 MNIST 单个 epoch（一轮完整训练）包含 60,000 张图像，在 Batch Size 为 100 的情况下，一个 epoch 对应 600 次迭代。10,000 次训练意味着代码会循环读取数据集大约 16.7 个 epoch。
+2. **网络结构**：`TwoLayerNet` 包含一个隐藏层（128 个神经元）和一个输出层（10 个神经元），在隐藏层后应用了非线性激活函数 ReLU。输入数据在进入全连接层前被展平（`view`）为大小为 784 的一维向量。
+3. **参数更新**：采用标准的 `optim.SGD` 优化器来实现随机梯度下降。
+4. **评估与记录**：在外部设置了 `current_step` 计数器，当达到 `TOTAL_STEPS` (10,000 次) 时程序停止。每迭代 100 次，模型会被切换到评估模式 `model.eval()`，在测试集上计算准确率并记录到列表中，最后使用 `matplotlib` 绘制折线图展示准确率的变化趋势。

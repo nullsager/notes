@@ -1,6 +1,6 @@
 可以，使用 `uv` 会更简洁，不需要手动创建和激活虚拟环境。下面把作业中的环境配置和运行命令全部改成 `uv` 版本；Python 推理代码基本不需要变化。
 
-# 使用 `uv` 部署 Qwen 3-0.6 B
+# 使用 `uv` 部署 Qwen3-0.6B
 
 ## 一、安装 `uv`
 
@@ -134,7 +134,7 @@ qwen3-local/
 └── uv.lock
 ```
 
-Qwen 3-0.6 B 是公开模型，一般也可以不登录直接下载：
+Qwen3-0.6B 是公开模型，一般也可以不登录直接下载：
 
 ```bash
 uv run hf download Qwen/Qwen3-0.6B --local-dir ./Qwen3-0.6B
@@ -144,7 +144,7 @@ uv run hf download Qwen/Qwen3-0.6B --local-dir ./Qwen3-0.6B
 
 ## 五、完整代码
 
-将项目中的 `main. py` 修改为：
+将项目中的 `main.py` 修改为：
 
 ```python
 from pathlib import Path
@@ -154,62 +154,62 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 
 # 模型已经通过 hf download 下载到项目目录
-MODEL_PATH = Path (__file__). parent / "Qwen 3-0.6 B"
+MODEL_PATH = Path(__file__).parent / "Qwen3-0.6B"
 
 
-def select_device () -> tuple[torch. device, torch. dtype]:
+def select_device() -> tuple[torch.device, torch.dtype]:
     """自动选择 GPU 或 CPU，并选择合适的数据精度。"""
-    if torch. cuda. is_available ():
-        device = torch.device ("cuda")
+    if torch.cuda.is_available():
+        device = torch.device("cuda")
 
-        # 新显卡优先使用 BF 16，否则使用 FP 16
+        # 新显卡优先使用 BF16，否则使用 FP16
         dtype = (
-            torch. bfloat 16
-            if torch. cuda. is_bf 16_supported ()
-            else torch. float 16
+            torch.bfloat16
+            if torch.cuda.is_bf16_supported()
+            else torch.float16
         )
     else:
-        device = torch.device ("cpu")
-        dtype = torch. float 32
+        device = torch.device("cpu")
+        dtype = torch.float32
 
     return device, dtype
 
 
-def load_model ():
-    """从本地目录加载 Qwen 3 模型和分词器。"""
-    if not MODEL_PATH. is_dir ():
-        raise FileNotFoundError (
+def load_model():
+    """从本地目录加载 Qwen3 模型和分词器。"""
+    if not MODEL_PATH.is_dir():
+        raise FileNotFoundError(
             f"未找到模型目录：{MODEL_PATH}\n"
             "请先执行：\n"
-            "uv run hf download Qwen/Qwen 3-0.6 B "
-            "--local-dir ./Qwen 3-0.6 B"
+            "uv run hf download Qwen/Qwen3-0.6B "
+            "--local-dir ./Qwen3-0.6B"
         )
 
-    device, dtype = select_device ()
+    device, dtype = select_device()
 
     # local_files_only=True：只使用本地文件，不访问网络
-    tokenizer = AutoTokenizer. from_pretrained (
+    tokenizer = AutoTokenizer.from_pretrained(
         MODEL_PATH,
         local_files_only=True,
     )
 
-    model = AutoModelForCausalLM. from_pretrained (
+    model = AutoModelForCausalLM.from_pretrained(
         MODEL_PATH,
         dtype=dtype,
         local_files_only=True,
-    ). to (device)
+    ).to(device)
 
     # 切换到推理模式，关闭训练阶段才需要的功能
-    model.eval ()
+    model.eval()
 
     return tokenizer, model, device, dtype
 
 
-def generate_response (
+def generate_response(
     prompt: str,
     tokenizer,
     model,
-    device: torch. device,
+    device: torch.device,
     max_new_tokens: int = 512,
 ) -> str:
     """根据用户输入生成模型回答。"""
@@ -224,8 +224,8 @@ def generate_response (
         },
     ]
 
-    # 按照 Qwen 3 的对话模板组织输入
-    text = tokenizer. apply_chat_template (
+    # 按照 Qwen3 的对话模板组织输入
+    text = tokenizer.apply_chat_template(
         messages,
         tokenize=False,
         add_generation_prompt=True,
@@ -233,14 +233,14 @@ def generate_response (
     )
 
     # 将文本转换成模型可以处理的 Token，并移动到推理设备
-    inputs = tokenizer (
+    inputs = tokenizer(
         text,
         return_tensors="pt",
-    ). to (device)
+    ).to(device)
 
     # inference_mode 会关闭梯度计算，降低内存占用
-    with torch. inference_mode ():
-        generated_ids = model.generate (
+    with torch.inference_mode():
+        generated_ids = model.generate(
             **inputs,
             max_new_tokens=max_new_tokens,
             do_sample=True,
@@ -248,84 +248,84 @@ def generate_response (
             top_p=0.8,
             top_k=20,
             repetition_penalty=1.05,
-            pad_token_id=tokenizer. eos_token_id,
+            pad_token_id=tokenizer.eos_token_id,
         )
 
     # 输出中包含原始输入，只截取模型新生成的部分
-    input_length = inputs["input_ids"]. shape[1]
+    input_length = inputs["input_ids"].shape[1]
     response_ids = generated_ids[0, input_length:]
 
-    return tokenizer.decode (
+    return tokenizer.decode(
         response_ids,
         skip_special_tokens=True,
-    ). strip ()
+    ).strip()
 
 
-def main () -> None:
+def main() -> None:
     """加载模型并启动命令行对话。"""
-    tokenizer, model, device, dtype = load_model ()
+    tokenizer, model, device, dtype = load_model()
 
-    print ("=" * 60)
-    print ("Qwen 3-0.6 B 本地部署成功")
-    print (f"模型位置：{MODEL_PATH.resolve ()}")
-    print (f"推理设备：{device}")
-    print (f"数据精度：{dtype}")
+    print("=" * 60)
+    print("Qwen3-0.6B 本地部署成功")
+    print(f"模型位置：{MODEL_PATH.resolve()}")
+    print(f"推理设备：{device}")
+    print(f"数据精度：{dtype}")
 
-    if device. type == "cuda":
-        print (f"显卡型号：{torch. cuda. get_device_name (0)}")
+    if device.type == "cuda":
+        print(f"显卡型号：{torch.cuda.get_device_name(0)}")
 
-    print ("输入 exit 或 quit 退出程序")
-    print ("=" * 60)
+    print("输入 exit 或 quit 退出程序")
+    print("=" * 60)
 
     while True:
-        prompt = input ("\n 用户："). strip ()
+        prompt = input("\n用户：").strip()
 
-        if prompt.lower () in {"exit", "quit"}:
-            print ("程序已退出。")
+        if prompt.lower() in {"exit", "quit"}:
+            print("程序已退出。")
             break
 
         if not prompt:
-            print ("请输入有效内容。")
+            print("请输入有效内容。")
             continue
 
-        response = generate_response (
+        response = generate_response(
             prompt=prompt,
             tokenizer=tokenizer,
             model=model,
             device=device,
         )
 
-        print (f"Qwen：{response}")
+        print(f"Qwen：{response}")
 
 
 if __name__ == "__main__":
-    main ()
+    main()
 ```
 
 ---
 
 ## 六、运行程序
 
-不需要手动激活 `. venv`，直接执行：
+不需要手动激活 `.venv`，直接执行：
 
 ```bash
-uv run main. py
+uv run main.py
 ```
 
 也可以写成：
 
 ```bash
-uv run python main. py
+uv run python main.py
 ```
 
 示例输出：
 
 ```text
 ============================================================
-Qwen 3-0.6 B 本地部署成功
-模型位置：D:\qwen 3-local\Qwen 3-0.6 B
+Qwen3-0.6B 本地部署成功
+模型位置：D:\qwen3-local\Qwen3-0.6B
 推理设备：cuda
-数据精度：torch. bfloat 16
+数据精度：torch.bfloat16
 显卡型号：NVIDIA GeForce RTX 4060
 输入 exit 或 quit 退出程序
 ============================================================
@@ -348,37 +348,37 @@ exit
 通常不建议提交体积较大的模型文件和虚拟环境。可以提交：
 
 ```text
-qwen 3-local/
-├── main. py
-├── pyproject. toml
-├── uv. lock
+qwen3-local/
+├── main.py
+├── pyproject.toml
+├── uv.lock
 ├── .python-version
-└── README. md
+└── README.md
 ```
 
-建议在 `. gitignore` 中加入：
+建议在 `.gitignore` 中加入：
 
 ```gitignore
 .venv/
-Qwen 3-0.6 B/
+Qwen3-0.6B/
 __pycache__/
-*. pyc
+*.pyc
 ```
 
 模型可以由老师通过下面的命令重新下载：
 
 ```bash
 uv sync
-uv run hf download Qwen/Qwen 3-0.6 B --local-dir ./Qwen 3-0.6 B
-uv run main. py
+uv run hf download Qwen/Qwen3-0.6B --local-dir ./Qwen3-0.6B
+uv run main.py
 ```
 
 其中：
 
-- `pyproject. toml` 记录项目依赖
-- `uv. lock` 锁定依赖的具体版本
+- `pyproject.toml` 记录项目依赖
+- `uv.lock` 锁定依赖的具体版本
 - `uv sync` 根据锁文件恢复运行环境
-- `Qwen 3-0.6 B/` 不提交，但需要在本地保留才能运行
+- `Qwen3-0.6B/` 不提交，但需要在本地保留才能运行
 
 ---
 
@@ -388,8 +388,8 @@ uv run main. py
 |---|---|
 | 创建虚拟环境 | `uv` 自动创建 |
 | `pip install 包名` | `uv add 包名` |
-| `pip install -r requirements. txt` | `uv sync` |
-| `python main. py` | `uv run main. py` |
+| `pip install -r requirements.txt` | `uv sync` |
+| `python main.py` | `uv run main.py` |
 | `hf auth login` | `uv run hf auth login` |
 | `hf download ...` | `uv run hf download ...` |
 | 查看依赖 | `uv tree` |
@@ -398,14 +398,14 @@ uv run main. py
 最简完整执行流程如下：
 
 ```bash
-uv init qwen 3-local
-cd qwen 3-local
+uv init qwen3-local
+cd qwen3-local
 
 uv python pin 3.11
 uv add torch "transformers>=4.51.0" huggingface-hub safetensors
 
 uv run hf auth login
-uv run hf download Qwen/Qwen 3-0.6 B --local-dir ./Qwen 3-0.6 B
+uv run hf download Qwen/Qwen3-0.6B --local-dir ./Qwen3-0.6B
 
-uv run main. py
+uv run main.py
 ```
